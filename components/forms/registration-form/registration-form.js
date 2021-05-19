@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 // ==============================================
@@ -82,7 +83,7 @@ const Translucent = styled.span`
 const RegistrationForm = () => {
   return (
     <FormContainer>
-      <Form>
+      <Form onSubmit={e => e.preventDefault()}>
         <FormRow>
           <div className="top">
             <h3>CREATE YOUR APP ACCOUNT</h3>
@@ -108,7 +109,9 @@ const RegistrationForm = () => {
           {/* Can display form error messages here */}
         </FormRow>
         <FormRow>
-          <Button>NEXT</Button>
+          <Link to="/registration-page-2">
+            <Button>NEXT</Button>
+          </Link>
         </FormRow>
       </Form>
     </FormContainer>
