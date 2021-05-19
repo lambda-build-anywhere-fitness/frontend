@@ -1,4 +1,12 @@
 // Global colors go here
 
-$primary: #FFFFFF;
-$secondary: #000000;
+:root {
+  --text-primary:      #FFFFFF;
+  --translucent-primary: rgba(255, 255, 255, 0.3);
+  --gradient-starting:   #C85344;
+  --gradient-ending:   #E78333;
+  --shadow-from: rgba(131, 0, 255, 0.42);
+  --base-shadow: rgba(0, 0, 0, 0.12); 
+  --shadow-to: rgba(131, 0, 255, 0.2);
+  --hover-shadow:  0 1px 13px 0px black;
+}
