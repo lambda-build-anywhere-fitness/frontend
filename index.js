@@ -2,12 +2,13 @@ import React from 'react';
 import { render } from 'react-dom';
 import './global-styles/styles.scss'; // global styles
 import { gsap } from 'gsap'; // for animations
+import RegistrationForm  from './components/forms/registration-form/registration-form.js';
 
-// React Components map props into elements
+
 function App() {
   return (
     <div>
-      <h1>JOSH</h1>
+      <RegistrationForm></RegistrationForm>
     </div>
   );
 }
