@@ -23,6 +23,7 @@ const Form = styled.form`
   grid-template-rows: repeat(5, 1fr);
   height: 700px;
   width: 400px;
+  padding: 2%;
   /* border: dashed green 5px; */
 `; // Form ``
 
@@ -47,7 +48,7 @@ const FormRow = styled.div`
       border-bottom: solid var(--translucent-primary) 2px;
     }
   }
-`;
+`; // FormRow ``
 
 // ==============================================
 // ==============================================
@@ -64,33 +65,34 @@ const Button = styled.button`
     box-shadow: var(--hover-shadow);
     transform: scaleX(1.01) scaleY(1.01);
   }
-`;
-
-// ==============================================
-// ==============================================
+`; // Button ``
 
 // ==============================================
 // ==============================================
 
 const Solid = styled.span`
-`;
+`; // Solid ``
 const Translucent = styled.span`
   color: var(--translucent-primary);
-`;
+`; // Translucent ``
+  
+// ==============================================
+// ==============================================
+
 const RegistrationForm = () => {
   return (
     <FormContainer>
       <Form>
         <FormRow>
           <div className="top">
-            <h4>CREATE YOUR APP ACCOUNT</h4>
+            <h3>CREATE YOUR APP ACCOUNT</h3>
           </div>
           <div className="bottom">
             <Solid>1</Solid> <Solid>&#8212;</Solid> <Translucent>2</Translucent> <Translucent>&#8212;</Translucent> <Translucent>3</Translucent>
           </div>
         </FormRow>
         <FormRow>
-          <h3>New to the app? Let's create your login!</h3>
+          <h4>New to the app? Let's create your login!</h4>
         </FormRow>
         <FormRow>
           <div className="top form-input">
