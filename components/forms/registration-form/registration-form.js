@@ -9,11 +9,6 @@ import { makeStyles } from '@material-ui/core/styles';
 // ==============================================
 // ==============================================
 
-const init_form = { email: '', password: '' };
-
-// ==============================================
-// ==============================================
-
 const useStyles = makeStyles((theme) => ({
   root: {
     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
@@ -117,7 +112,7 @@ const Translucent = styled.span`
 // ==============================================
 // ==============================================
 
-const RegistrationForm = () => {
+const RegistrationForm = ({init_form, setFormData}) => {
 
   // --------------------------------------------
 
@@ -138,9 +133,42 @@ const RegistrationForm = () => {
   
   // --------------------------------------------
 
+  const onPost = (event) => {
+    console.log('onPost() in registration-form component');
+    event.preventDefault();
+
+    const formData = {
+      "email": `${form.email}`,
+      "password": `${form.password}`,
+    };
+    setFormData(formData);
+
+    // const history = useHistory();
+    // function handleClick() {
+    //   const duration = 0.5;
+    //   gsap.to(inputRef.current, {opacity: 0, duration});
+    //   setTimeout(() => history.push("/"), duration * 1e3);
+    // }
+
+
+    // axios.post('http://localhost:5000/friends', user)
+    //   .then((response) => {
+    //     console.log(response.data);
+    //     setUsers(response.data);
+    //   });
+
+    // Orlando TODO: Make POST request to backend here
+    // Orlando TODO: Make POST request to backend here
+    // Orlando TODO: Make POST request to backend here
+    // Orlando TODO: Make POST request to backend here
+    // Orlando TODO: Make POST request to backend here
+  };
+
+  // --------------------------------------------
+
   return (
     <FormContainer>
-      <Form onSubmit={e => e.preventDefault()}>
+      <Form onSubmit={onPost}>
         <FormRow>
           <div className="top">
             <h3>CREATE YOUR APP ACCOUNT</h3>
@@ -174,9 +202,9 @@ const RegistrationForm = () => {
           {/* Can display form error messages here */}
         </FormRow>
         <FormRow>
-          <Link to="/registration-page-2">
-            <Button className={classes.root}>NEXT</Button>
-          </Link>
+          {/* <Link to="/registration-page-2" style={{textDecoration: 'none'}}> */}
+            <Button type="submit" className={classes.root}>NEXT</Button>
+          {/* </Link> */}
         </FormRow>
       </Form>
     </FormContainer>
