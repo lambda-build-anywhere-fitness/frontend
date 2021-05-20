@@ -1,9 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+import TextField from '@material-ui/core/TextField';
+
 // ==============================================
 // ==============================================
+
+const init_form = { email: '', password: '' };
+
+// ==============================================
+// ==============================================
+
 
 const FormContainer = styled.div`
   display: flex;
@@ -81,6 +89,21 @@ const Translucent = styled.span`
 // ==============================================
 
 const RegistrationForm = () => {
+
+  // --------------------------------------------
+
+  const [form, setForm] = useState(init_form);
+
+  // --------------------------------------------
+
+  const onChange = (event) => {
+    console.log('onChange() -- form: ', form);
+    const { name, value } = event.target;
+    setForm( {...form, [name]: value} );
+  };
+
+  // --------------------------------------------
+
   return (
     <FormContainer>
       <Form onSubmit={e => e.preventDefault()}>
@@ -97,12 +120,18 @@ const RegistrationForm = () => {
         </FormRow>
         <FormRow>
           <div className="top form-input">
-            email
-            {/* TODO: Place a text input field for email here */}
+            <TextField id="standard-basic" label="email"
+              name="email" 
+              value={form.email} 
+              onChange={onChange}   
+            />
           </div>
           <div className="bottom form-input">
-            password
-            {/* TODO: Place a text input field for password here */}
+            <TextField id="standard-basic" label="password"
+              name="password" 
+              value={form.password} 
+              onChange={onChange}   
+            />
           </div>
         </FormRow>
         <FormRow>

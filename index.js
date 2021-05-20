@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './global-styles/styles.scss'; // global styles
 // import { gsap } from 'gsap'; // for animations
 import RegistrationForm  from './components/forms/registration-form/registration-form.js';
+import BasicTextFields from './components/forms/material-form/material-form.js';
 
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
       </Route>
 
       <Route path="/registration-page-2">
-        <h1>page 2</h1>
+        <BasicTextFields></BasicTextFields>
       </Route>
     </Router>
   );
