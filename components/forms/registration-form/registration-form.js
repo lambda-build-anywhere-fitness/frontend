@@ -1,8 +1,9 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-
-// ==============================================
+import {AuthContext} from '../../context/AuthContext'
+import axiosWithAuth from '../../helpers/axiosWithAuth'
+//  ==============================================
 // ==============================================
 
 const FormContainer = styled.div`
@@ -80,7 +81,34 @@ const Translucent = styled.span`
 // ==============================================
 // ==============================================
 
-const RegistrationForm = () => {
+export default function RegistrationForm() {
+
+   /* const [registerInfo, setRegstierInfo] = useContext(AuthContext)
+    const [token, setToken] = useState(false)
+
+    const history = useHistory()
+
+    const handleChange = e => {
+      setRegstierInfo({
+        ...registerInfo,
+        [e.target.name]: e.target.value
+      })
+    }
+
+    const handleSubmit = e => {
+      e.preventDefault()
+      axiosWithAuth().post()
+      .then(res => {
+        console.log('', res)
+        history.push()
+      })
+      .catch(err => {
+        console.log(err, '')
+      })
+    }
+
+
+*/
   return (
     <FormContainer>
       <Form onSubmit={e => e.preventDefault()}>
@@ -98,10 +126,23 @@ const RegistrationForm = () => {
         <FormRow>
           <div className="top form-input">
             email
+            <input 
+              name='email'
+              type='email'
+              autoFocus
+              // value={registerInfo.email}
+              // onChange={handleChange}
+              />
             {/* TODO: Place a text input field for email here */}
           </div>
           <div className="bottom form-input">
             password
+            <input
+            name='password'
+            type='password'
+            // value={registerInfo.password}
+            // onChange={handleChange}
+            />
             {/* TODO: Place a text input field for password here */}
           </div>
         </FormRow>
@@ -117,4 +158,3 @@ const RegistrationForm = () => {
     </FormContainer>
   );
 }
-export default RegistrationForm;
