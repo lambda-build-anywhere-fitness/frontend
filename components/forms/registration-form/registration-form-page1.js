@@ -1,11 +1,9 @@
 import React, {useState} from 'react';
-// import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import styled from 'styled-components';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -204,12 +202,13 @@ const RegistrationFormPg1 = ({setFormData}) => {
           {/* Can display form error messages here */}
         </FormRow>
         <FormRow>
-          {/* <Link to="/registration-page-2" style={{textDecoration: 'none'}}> */}
-            <Button type="submit" className={buttonClasses.root}>
-              NEXT
-            </Button>
-          {/* </Link> */}
+          
+          <Button type="submit" className={buttonClasses.root}>
+            NEXT
+          </Button>
+
           <LinearProgress className="hide-visibility" id="registrationFormPg1__LinearProgress"></LinearProgress>
+        
         </FormRow>
       </Form>
     </FormContainer>

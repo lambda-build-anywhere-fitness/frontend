@@ -2,10 +2,9 @@ import React, {useState, useEffect} from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './global-styles/styles.scss'; // global styles
-// import { gsap } from 'gsap'; // for animations
+
 import RegistrationFormPg1  from './components/forms/registration-form/registration-form-page1.js';
 import RegistrationFormPg2  from './components/forms/registration-form/registration-form-page2.js';
-// import BasicTextFields from './components/forms/material-form/material-form.js';
 
 // ==============================================
 
@@ -27,7 +26,6 @@ function App() {
       </Route>
 
       <Route path="/registration-page-2">
-        {/* <BasicTextFields></BasicTextFields> */}
         <RegistrationFormPg2 formData={formData}></RegistrationFormPg2>
       </Route>
     </Router>
