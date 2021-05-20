@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './global-styles/styles.scss'; // global styles
 // import { gsap } from 'gsap'; // for animations
-import RegistrationForm  from './components/forms/registration-form/registration-form.js';
+import RegistrationFormPg1  from './components/forms/registration-form/registration-form-page1.js';
 import RegistrationFormPg2  from './components/forms/registration-form/registration-form-page2.js';
 // import BasicTextFields from './components/forms/material-form/material-form.js';
 
@@ -25,7 +25,7 @@ function App() {
   return (
     <Router>
       <Route exact path="/">
-        <RegistrationForm setFormData={setFormData}></RegistrationForm>
+        <RegistrationFormPg1 setFormData={setFormData}></RegistrationFormPg1>
       </Route>
 
       <Route path="/registration-page-2">

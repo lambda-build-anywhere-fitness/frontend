@@ -10,7 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 // ==============================================
 // ==============================================
 
-const useStyles = makeStyles((theme) => ({
+const buttonStyles = makeStyles((theme) => ({
   root: {
     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
     border: 'dashed white 5px',
@@ -31,11 +31,6 @@ const useStyles = makeStyles((theme) => ({
       boxShadow: 'var(--hover-shadow)',
       transform: 'scaleX(1.01) scaleY(1.01)'
     }
-  },
-  '& > *': {
-    margin: theme.spacing(1),
-    width: '25ch',
-    border: 'dashed green 5px',
   },
 }));
 
@@ -113,11 +108,11 @@ const Translucent = styled.span`
 // ==============================================
 // ==============================================
 
-const RegistrationForm = ({setFormData}) => {
+const RegistrationFormPg1 = ({setFormData}) => {
 
   // --------------------------------------------
 
-  const classes = useStyles();
+  const buttonClasses = buttonStyles();
   const inputClasses = inputStyles();
 
   // --------------------------------------------
@@ -204,11 +199,11 @@ const RegistrationForm = ({setFormData}) => {
         </FormRow>
         <FormRow>
           {/* <Link to="/registration-page-2" style={{textDecoration: 'none'}}> */}
-            <Button type="submit" className={classes.root}>NEXT</Button>
+            <Button type="submit" className={buttonClasses.root}>NEXT</Button>
           {/* </Link> */}
         </FormRow>
       </Form>
     </FormContainer>
   );
 }
-export default RegistrationForm;
+export default RegistrationFormPg1;
