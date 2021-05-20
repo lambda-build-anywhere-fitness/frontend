@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 import styled from 'styled-components';
 
 import TextField from '@material-ui/core/TextField';
@@ -112,7 +113,7 @@ const Translucent = styled.span`
 // ==============================================
 // ==============================================
 
-const RegistrationForm = ({init_form, setFormData}) => {
+const RegistrationForm = ({setFormData}) => {
 
   // --------------------------------------------
 
@@ -120,7 +121,7 @@ const RegistrationForm = ({init_form, setFormData}) => {
   const inputClasses = inputStyles();
 
   // --------------------------------------------
-
+  const init_form = { email: '', password: '' };
   const [form, setForm] = useState(init_form);
 
   // --------------------------------------------
@@ -133,6 +134,7 @@ const RegistrationForm = ({init_form, setFormData}) => {
   
   // --------------------------------------------
 
+  const history = useHistory();
   const onPost = (event) => {
     console.log('onPost() in registration-form component');
     event.preventDefault();
@@ -143,12 +145,11 @@ const RegistrationForm = ({init_form, setFormData}) => {
     };
     setFormData(formData);
 
-    // const history = useHistory();
-    // function handleClick() {
-    //   const duration = 0.5;
-    //   gsap.to(inputRef.current, {opacity: 0, duration});
-    //   setTimeout(() => history.push("/"), duration * 1e3);
-    // }
+    const animate_page_transition_during_post_request = (() => {
+      const duration = 0.5;
+      // gsap.to(inputRef.current, {opacity: 0, duration});
+      setTimeout(() => history.push("/registration-page-2"), duration * 1e3);
+    })();
 
 
     // axios.post('http://localhost:5000/friends', user)
