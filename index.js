@@ -7,15 +7,13 @@ import RegistrationFormPg1  from './components/forms/registration-form/registrat
 import RegistrationFormPg2  from './components/forms/registration-form/registration-form-page2.js';
 // import BasicTextFields from './components/forms/material-form/material-form.js';
 
-const init_form = { email: '', password: '' };
-
 // ==============================================
 
 function App() {
   
   // -------------------------------------------
 
-  const [formData, setFormData] = useState(init_form);
+  const [formData, setFormData] = useState({ email: '', password: '' });
   useEffect(() => {
     console.log('formData in top-level component: ', formData);
   }, [formData]);
