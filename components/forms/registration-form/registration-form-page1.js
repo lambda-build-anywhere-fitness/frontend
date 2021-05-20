@@ -143,13 +143,14 @@ const RegistrationFormPg1 = ({setFormData}) => {
     setFormData(formData);
 
     const animate_page_transition_during_post_request = (() => {
+      const progress_bar = document.querySelector('#registrationFormPg1__LinearProgress');
+      progress_bar.classList.toggle('hide-visibility');
+
       const duration = 2.5;
       // gsap.to(inputRef.current, {opacity: 0, duration});
       setTimeout(() => history.push("/registration-page-2"), duration * 1e3);
     })();
 
-    const progress_bar = document.querySelector('#registrationFormPg1__LinearProgress');
-    progress_bar.classList.toggle('hide-visibility');
 
 
     // axios.post('http://localhost:5000/friends', user)

@@ -34,6 +34,8 @@ function App() {
   );
 }
 
+// ==============================================
+
 render(
   <App />,                          // arg-1: Invoked component
   document.querySelector('#root')   // arg-2: DOM node we want to attach to
