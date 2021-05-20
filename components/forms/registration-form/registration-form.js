@@ -1,9 +1,70 @@
+<<<<<<< HEAD
 import React, { useContext, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import {AuthContext} from '../../context/AuthContext'
 import axiosWithAuth from '../../helpers/axiosWithAuth'
 //  ==============================================
+=======
+import React, {useState} from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
+
+// ==============================================
+// ==============================================
+
+const init_form = { email: '', password: '' };
+
+// ==============================================
+// ==============================================
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    border: 'dashed white 5px',
+    borderRadius: 3,
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    color: 'white',
+    height: 48,
+    padding: '0 30px',
+
+    height: '60px',
+    width: '100%',
+    borderRadius: '5px',
+    border: 'none',
+    color: 'var(--text-primary)',
+    background: 'var(--translucent-primary)',
+    transition: 'box-shadow 0.3s ease, transform 0.3s ease',
+    '&:hover': { 
+      boxShadow: 'var(--hover-shadow)',
+      transform: 'scaleX(1.01) scaleY(1.01)'
+    }
+  },
+  '& > *': {
+    margin: theme.spacing(1),
+    width: '25ch',
+    border: 'dashed green 5px',
+  },
+}));
+
+const inputStyles = makeStyles({
+  root: {
+    width: '100%',
+  '& *': {
+    color: 'white'
+  },
+  '& .MuiInput-underline::before': {
+    borderBottom: '2px solid var(--translucent-primary)',
+  },
+  },
+});
+
+// ==============================================
+>>>>>>> 306f96eb15d501ef5118511b98a86be6cb3240d3
 // ==============================================
 
 const FormContainer = styled.div`
@@ -44,30 +105,14 @@ const FormRow = styled.div`
     /* border: solid white 2px; */
 
     &.form-input {
+      width: 100%;
       text-align: left;
       padding: 0 2%;
       border: 0;
-      border-bottom: solid var(--translucent-primary) 2px;
+      /* border: dashed yellow 1px; */
     }
   }
 `; // FormRow ``
-
-// ==============================================
-// ==============================================
-
-const Button = styled.button`
-  height: 60px;
-  width: 100%;
-  border-radius: 5px;
-  border: none;
-  color: var(--text-primary);
-  background: var(--translucent-primary);
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-  &:hover { 
-    box-shadow: var(--hover-shadow);
-    transform: scaleX(1.01) scaleY(1.01);
-  }
-`; // Button ``
 
 // ==============================================
 // ==============================================
@@ -81,6 +126,7 @@ const Translucent = styled.span`
 // ==============================================
 // ==============================================
 
+<<<<<<< HEAD
 export default function RegistrationForm() {
 
    /* const [registerInfo, setRegstierInfo] = useContext(AuthContext)
@@ -109,6 +155,29 @@ export default function RegistrationForm() {
 
 
 */
+=======
+const RegistrationForm = () => {
+
+  // --------------------------------------------
+
+  const classes = useStyles();
+  const inputClasses = inputStyles();
+
+  // --------------------------------------------
+
+  const [form, setForm] = useState(init_form);
+
+  // --------------------------------------------
+
+  const onChange = (event) => {
+    console.log('onChange() -- form: ', form);
+    const { name, value } = event.target;
+    setForm( {...form, [name]: value} );
+  };
+  
+  // --------------------------------------------
+
+>>>>>>> 306f96eb15d501ef5118511b98a86be6cb3240d3
   return (
     <FormContainer>
       <Form onSubmit={e => e.preventDefault()}>
@@ -125,6 +194,7 @@ export default function RegistrationForm() {
         </FormRow>
         <FormRow>
           <div className="top form-input">
+<<<<<<< HEAD
             email
             <input 
               name='email'
@@ -144,6 +214,22 @@ export default function RegistrationForm() {
             // onChange={handleChange}
             />
             {/* TODO: Place a text input field for password here */}
+=======
+            <TextField id="standard-basic" label="email"
+              name="email" 
+              value={form.email} 
+              onChange={onChange}
+              className={inputClasses.root}   
+            />
+          </div>
+          <div className="bottom form-input">
+            <TextField id="standard-basic" label="password"
+              name="password" 
+              value={form.password} 
+              onChange={onChange}
+              className={inputClasses.root}
+            />
+>>>>>>> 306f96eb15d501ef5118511b98a86be6cb3240d3
           </div>
         </FormRow>
         <FormRow>
@@ -151,7 +237,7 @@ export default function RegistrationForm() {
         </FormRow>
         <FormRow>
           <Link to="/registration-page-2">
-            <Button>NEXT</Button>
+            <Button className={classes.root}>NEXT</Button>
           </Link>
         </FormRow>
       </Form>
