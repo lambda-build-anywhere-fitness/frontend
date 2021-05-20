@@ -5,6 +5,8 @@ import styled from 'styled-components';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles } from '@material-ui/core/styles';
 
 // ==============================================
@@ -141,10 +143,13 @@ const RegistrationFormPg1 = ({setFormData}) => {
     setFormData(formData);
 
     const animate_page_transition_during_post_request = (() => {
-      const duration = 0.5;
+      const duration = 2.5;
       // gsap.to(inputRef.current, {opacity: 0, duration});
       setTimeout(() => history.push("/registration-page-2"), duration * 1e3);
     })();
+
+    const progress_bar = document.querySelector('#registrationFormPg1__LinearProgress');
+    progress_bar.classList.toggle('hide-visibility');
 
 
     // axios.post('http://localhost:5000/friends', user)
@@ -199,8 +204,11 @@ const RegistrationFormPg1 = ({setFormData}) => {
         </FormRow>
         <FormRow>
           {/* <Link to="/registration-page-2" style={{textDecoration: 'none'}}> */}
-            <Button type="submit" className={buttonClasses.root}>NEXT</Button>
+            <Button type="submit" className={buttonClasses.root}>
+              NEXT
+            </Button>
           {/* </Link> */}
+          <LinearProgress className="hide-visibility" id="registrationFormPg1__LinearProgress"></LinearProgress>
         </FormRow>
       </Form>
     </FormContainer>
