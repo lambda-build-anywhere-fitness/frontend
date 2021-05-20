@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
     '& > *': {
       margin: theme.spacing(1),
       width: '25ch',
+      border: 'dashed green 5px',
     },
   },
 }));
@@ -18,9 +19,9 @@ const init_form = {
 
 export default function BasicTextFields() {
 
-  const [form, setForm]         = useState(init_form);
+  const [form, setForm] = useState(init_form);
 
-  const onChange = () => {
+  const onChange = (event) => {
     console.log('onChange() -- form: ', form);
     const { name, value } = event.target;
     setForm( {...form, [name]: value} );
