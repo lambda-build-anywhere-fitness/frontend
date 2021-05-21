@@ -12,10 +12,14 @@ function App() {
   
   // -------------------------------------------
 
-  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [formData, setFormData]     = useState({ email: '', password: ''});
+  const [formData_2, setFormData_2] = useState({ first_name: '', last_name: '', country: '', mailing_list: false });
   useEffect(() => {
-    console.log('formData in top-level component: ', formData);
+    console.log('Page 1 form data in top-level component: ', formData);
   }, [formData]);
+  useEffect(() => {
+    console.log('Page 2 form data in top-level component: ', formData_2);
+  }, [formData_2]);
 
   // -------------------------------------------
 
@@ -26,7 +30,7 @@ function App() {
       </Route>
 
       <Route path="/registration-page-2">
-        <RegistrationFormPg2 formData={formData}></RegistrationFormPg2>
+        <RegistrationFormPg2 setFormData={setFormData_2}></RegistrationFormPg2>
       </Route>
     </Router>
   );

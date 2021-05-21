@@ -65,7 +65,7 @@ const FormContainer = styled.div`
 const Form = styled.form` 
   display: grid;
   grid-template-columns: 1fr;  
-  grid-template-rows: repeat(5, 1fr);
+  grid-template-rows: 1fr 2fr 1fr 1fr;
   height: 700px;
   width: 400px;
   padding: 2%;
@@ -83,7 +83,7 @@ const FormRow = styled.div`
   text-align: center;
   /* border: dotted purple 5px; */
 
-  .top, .bottom {
+  .top, .middle, .bottom {
     text-align: center;
     /* border: solid white 2px; */
 
@@ -114,12 +114,18 @@ const RegistrationFormPg1 = ({setFormData}) => {
   // --------------------------------------------
 
   useEffect(() => {
-      gsap.from(inputRef.current, {x: '-100vw', ease: "power2.out",});
+      gsap.from([input1Ref.current, input2Ref.current, input3Ref.current], {
+        x: '-100vw', 
+        ease: "power2.out",
+        stagger: 0.15
+      });
   }, []);
 
   // --------------------------------------------
 
-  const inputRef = useRef(null);
+  const input1Ref = useRef(null);
+  const input2Ref = useRef(null);
+  const input3Ref = useRef(null);
 
   // --------------------------------------------
 
@@ -127,7 +133,7 @@ const RegistrationFormPg1 = ({setFormData}) => {
   const inputClasses = inputStyles();
 
   // --------------------------------------------
-  const init_form = { email: '', password: '' };
+  const init_form = { first_name: '', last_name: '', country: '', mailing_list: false };
   const [form, setForm] = useState(init_form);
 
   // --------------------------------------------
@@ -149,26 +155,45 @@ const RegistrationFormPg1 = ({setFormData}) => {
       "email": `${form.email}`,
       "password": `${form.password}`,
     };
-    // setFormData(formData);
+    setFormData(formData);
 
     const animate_page_transition_during_post_request = (() => {
       const progress_bar = document.querySelector('#registrationFormPg1__LinearProgress');
       progress_bar.classList.toggle('hide-visibility');
+
+      const duration = 2.5;
+      gsap.to([input1Ref.current, input2Ref.current, input3Ref.current], {
+        x: '100vw', 
+        delay: duration - 0.5, 
+        ease: "power2.out",
+        stagger: 0.15,
+      });
+      setTimeout(() => history.push("/registration-page-3"), duration * 1e3);
+
+      // animate:  "New to the app? Let's create your login!"
+      gsap.to(titleRef.current, { opacity: 0 });
+
+      // animate:  "2 -"
+      const timeline = gsap.timeline();
+      timeline.to([translucent1Ref.current, translucent2Ref.current], { 
+        color: 'white',
+        textShadow: '1px 1px 2px white, 0 0 1em green, 0 0 0.2em white',
+        scale: 2.1,
+        duration: 0.3,
+      });
+      timeline.to([translucent1Ref.current, translucent2Ref.current], { 
+        color: 'white',
+        textShadow: '0px 0px 0px white, 0 0 0em green, 0 0 0em white',
+        scale: 2.1,
+        duration: 0.3,
+      });
     })();
 
-
-
-    // axios.post('http://localhost:5000/friends', user)
+    // axios.post('http://localhost:5000/x', user)
     //   .then((response) => {
     //     console.log(response.data);
     //     setUsers(response.data);
     //   });
-
-    // Orlando TODO: Make POST request to backend here
-    // Orlando TODO: Make POST request to backend here
-    // Orlando TODO: Make POST request to backend here
-    // Orlando TODO: Make POST request to backend here
-    // Orlando TODO: Make POST request to backend here
   };
 
   // --------------------------------------------
@@ -184,31 +209,41 @@ const RegistrationFormPg1 = ({setFormData}) => {
             <Solid>1</Solid> <Solid>&#8212;</Solid> <Solid>2</Solid> <Solid>&#8212;</Solid> <Translucent>3</Translucent>
           </div>
         </FormRow>
-        <FormRow>
-          <h4>New to the app? Let's create your login!</h4>
-        </FormRow>
+
         <FormRow>
           <div className="top form-input">
             <TextField id="standard-basic" label="email"
-              name="email" 
-              value={form.email} 
+              name="first_name" 
+              value={form.first_name} 
               onChange={onChange}
               className={inputClasses.root}
-              ref={inputRef}
+              ref={input1Ref}
+            />
+          </div>
+          <div className="middle form-input">
+            <TextField id="standard-basic" label="password"
+              name="last_name" 
+              value={form.last_name} 
+              onChange={onChange}
+              className={inputClasses.root}
+              ref={input2Ref}
             />
           </div>
           <div className="bottom form-input">
             <TextField id="standard-basic" label="password"
-              name="password" 
-              value={form.password} 
+              name="country" 
+              value={form.country} 
               onChange={onChange}
               className={inputClasses.root}
+              ref={input3Ref}
             />
           </div>
         </FormRow>
+
         <FormRow>
           {/* Can display form error messages here */}
         </FormRow>
+
         <FormRow>
           
           <Button type="submit" className={buttonClasses.root}>

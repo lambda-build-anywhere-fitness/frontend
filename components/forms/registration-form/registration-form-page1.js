@@ -113,7 +113,8 @@ const RegistrationFormPg1 = ({setFormData}) => {
 
   // --------------------------------------------
 
-  const inputRef = useRef(null);
+  const input1Ref = useRef(null);
+  const input2Ref = useRef(null);
   const titleRef = useRef(null);
   const translucent1Ref = useRef(null);
   const translucent2Ref = useRef(null);
@@ -153,7 +154,12 @@ const RegistrationFormPg1 = ({setFormData}) => {
       progress_bar.classList.toggle('hide-visibility');
 
       const duration = 2.5;
-      gsap.to(inputRef.current, {x: '100vw', delay: duration - 0.5, ease: "power2.out",});
+      gsap.to([input1Ref.current, input2Ref.current], {
+        x: '100vw', 
+        delay: duration - 0.5, 
+        ease: "power2.out",
+        stagger: 0.15,
+      });
       setTimeout(() => history.push("/registration-page-2"), duration * 1e3);
 
       // animate:  "New to the app? Let's create your login!"
@@ -165,7 +171,7 @@ const RegistrationFormPg1 = ({setFormData}) => {
         color: 'white',
         textShadow: '1px 1px 2px white, 0 0 1em green, 0 0 0.2em white',
         scale: 2.1,
-        duration: 0.3,
+        duration: 0.3
       });
       timeline.to([translucent1Ref.current, translucent2Ref.current], { 
         color: 'white',
@@ -175,19 +181,6 @@ const RegistrationFormPg1 = ({setFormData}) => {
       });
     })();
 
-
-
-    // axios.post('http://localhost:5000/friends', user)
-    //   .then((response) => {
-    //     console.log(response.data);
-    //     setUsers(response.data);
-    //   });
-
-    // Orlando TODO: Make POST request to backend here
-    // Orlando TODO: Make POST request to backend here
-    // Orlando TODO: Make POST request to backend here
-    // Orlando TODO: Make POST request to backend here
-    // Orlando TODO: Make POST request to backend here
   };
 
   // --------------------------------------------
@@ -213,7 +206,7 @@ const RegistrationFormPg1 = ({setFormData}) => {
               value={form.email} 
               onChange={onChange}
               className={inputClasses.root}
-              ref={inputRef}
+              ref={input1Ref}
             />
           </div>
           <div className="bottom form-input">
@@ -222,6 +215,7 @@ const RegistrationFormPg1 = ({setFormData}) => {
               value={form.password} 
               onChange={onChange}
               className={inputClasses.root}
+              ref={input2Ref}
             />
           </div>
         </FormRow>
