@@ -3,8 +3,9 @@ import { render } from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './global-styles/styles.scss'; // global styles
 
-import RegistrationFormPg1  from './components/forms/registration-form/registration-form-page1.js';
-import RegistrationFormPg2  from './components/forms/registration-form/registration-form-page2.js';
+import RegistrationFormPg1 from './components/forms/registration-form/registration-form-page1.js';
+import RegistrationFormPg2 from './components/forms/registration-form/registration-form-page2.js';
+import RegistrationFormPg3 from './components/forms/registration-form/registration-form-page3.js';
 
 // ==============================================
 
@@ -31,6 +32,10 @@ function App() {
 
       <Route path="/registration-page-2">
         <RegistrationFormPg2 setFormData={setFormData_2}></RegistrationFormPg2>
+      </Route>
+
+      <Route path="/registration-page-3">
+        <RegistrationFormPg3 formData={formData} formData_2={formData_2}></RegistrationFormPg3>
       </Route>
     </Router>
   );

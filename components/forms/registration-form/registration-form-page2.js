@@ -171,8 +171,9 @@ const RegistrationFormPg1 = ({setFormData}) => {
     event.preventDefault();
 
     const formData = {
-      "email": `${form.email}`,
-      "password": `${form.password}`,
+      "first_name": `${form.first_name}`,
+      "last_name": `${form.last_name}`,
+      "country": `${form.country}`,
     };
     setFormData(formData);
 
@@ -188,9 +189,6 @@ const RegistrationFormPg1 = ({setFormData}) => {
         stagger: 0.15,
       });
       setTimeout(() => history.push("/registration-page-3"), duration * 1e3);
-
-      // animate:  "New to the app? Let's create your login!"
-      gsap.to(titleRef.current, { opacity: 0 });
 
     })();
 
@@ -217,7 +215,7 @@ const RegistrationFormPg1 = ({setFormData}) => {
 
         <FormRow>
           <div className="top form-input">
-            <TextField id="standard-basic" label="email"
+            <TextField id="standard-basic" label="first_name"
               name="first_name" 
               value={form.first_name} 
               onChange={onChange}
@@ -226,7 +224,7 @@ const RegistrationFormPg1 = ({setFormData}) => {
             />
           </div>
           <div className="middle form-input">
-            <TextField id="standard-basic" label="password"
+            <TextField id="standard-basic" label="last_name"
               name="last_name" 
               value={form.last_name} 
               onChange={onChange}
@@ -235,7 +233,7 @@ const RegistrationFormPg1 = ({setFormData}) => {
             />
           </div>
           <div className="bottom form-input">
-            <TextField id="standard-basic" label="password"
+            <TextField id="standard-basic" label="country"
               name="country" 
               value={form.country} 
               onChange={onChange}
