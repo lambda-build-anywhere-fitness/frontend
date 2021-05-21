@@ -114,11 +114,28 @@ const RegistrationFormPg1 = ({setFormData}) => {
   // --------------------------------------------
 
   useEffect(() => {
-      gsap.from([input1Ref.current, input2Ref.current, input3Ref.current], {
-        x: '-100vw', 
-        ease: "power2.out",
-        stagger: 0.15
-      });
+    
+    // animate:  "2 -"
+    const timeline = gsap.timeline();
+    timeline.to([translucent1Ref.current, translucent2Ref.current], { 
+      color: 'white',
+      textShadow: '1px 1px 2px white, 0 0 1em green, 0 0 0.2em white',
+      scale: 2.1,
+      duration: 0.3
+    });
+    timeline.to([translucent1Ref.current, translucent2Ref.current], { 
+      color: 'white',
+      textShadow: '0px 0px 0px white, 0 0 0em green, 0 0 0em white',
+      scale: 2.1,
+      duration: 0.3,
+    });
+
+    timeline.from([input1Ref.current, input2Ref.current, input3Ref.current], {
+      x: '-100vw', 
+      ease: "power2.out",
+      stagger: 0.15
+    });
+
   }, []);
 
   // --------------------------------------------
@@ -126,6 +143,8 @@ const RegistrationFormPg1 = ({setFormData}) => {
   const input1Ref = useRef(null);
   const input2Ref = useRef(null);
   const input3Ref = useRef(null);
+  const translucent1Ref = useRef(null);
+  const translucent2Ref = useRef(null);
 
   // --------------------------------------------
 
@@ -173,20 +192,6 @@ const RegistrationFormPg1 = ({setFormData}) => {
       // animate:  "New to the app? Let's create your login!"
       gsap.to(titleRef.current, { opacity: 0 });
 
-      // animate:  "2 -"
-      const timeline = gsap.timeline();
-      timeline.to([translucent1Ref.current, translucent2Ref.current], { 
-        color: 'white',
-        textShadow: '1px 1px 2px white, 0 0 1em green, 0 0 0.2em white',
-        scale: 2.1,
-        duration: 0.3,
-      });
-      timeline.to([translucent1Ref.current, translucent2Ref.current], { 
-        color: 'white',
-        textShadow: '0px 0px 0px white, 0 0 0em green, 0 0 0em white',
-        scale: 2.1,
-        duration: 0.3,
-      });
     })();
 
     // axios.post('http://localhost:5000/x', user)
@@ -206,7 +211,7 @@ const RegistrationFormPg1 = ({setFormData}) => {
             <h3>CREATE YOUR APP ACCOUNT</h3>
           </div>
           <div className="bottom">
-            <Solid>1</Solid> <Solid>&#8212;</Solid> <Solid>2</Solid> <Solid>&#8212;</Solid> <Translucent>3</Translucent>
+            <Solid>1</Solid> <Solid>&#8212;</Solid> <Translucent ref={translucent1Ref}>2</Translucent> <Translucent ref={translucent2Ref}>&#8212;</Translucent> <Translucent>3</Translucent>
           </div>
         </FormRow>
 
