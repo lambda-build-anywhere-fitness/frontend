@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { useHistory } from "react-router-dom";
 import styled from 'styled-components';
 
@@ -113,8 +113,13 @@ const RegistrationFormPg1 = ({setFormData}) => {
 
   // --------------------------------------------
 
+  useEffect(() => {
+      gsap.from(inputRef.current, {x: '-100vw', ease: "power2.out",});
+  }, []);
+
+  // --------------------------------------------
+
   const inputRef = useRef(null);
-  const titleRef = useRef(null);
 
   // --------------------------------------------
 
@@ -149,10 +154,6 @@ const RegistrationFormPg1 = ({setFormData}) => {
     const animate_page_transition_during_post_request = (() => {
       const progress_bar = document.querySelector('#registrationFormPg1__LinearProgress');
       progress_bar.classList.toggle('hide-visibility');
-
-      const duration = 2.5;
-      gsap.to(inputRef.current, {x: '100vw', delay: duration - 0.5});
-      setTimeout(() => history.push("/registration-page-2"), duration * 1e3);
     })();
 
 
@@ -180,7 +181,7 @@ const RegistrationFormPg1 = ({setFormData}) => {
             <h3>CREATE YOUR APP ACCOUNT</h3>
           </div>
           <div className="bottom">
-            <Solid>1</Solid> <Solid>&#8212;</Solid> <Translucent>2</Translucent> <Translucent>&#8212;</Translucent> <Translucent>3</Translucent>
+            <Solid>1</Solid> <Solid>&#8212;</Solid> <Solid>2</Solid> <Solid>&#8212;</Solid> <Translucent>3</Translucent>
           </div>
         </FormRow>
         <FormRow>
