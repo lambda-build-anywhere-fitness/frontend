@@ -1,28 +1,18 @@
-<<<<<<< HEAD
-import React, { useContext, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import { useHistory } from "react-router-dom";
+import * as yup from 'yup'
 import styled from 'styled-components';
-import {AuthContext} from '../../context/AuthContext'
 import axiosWithAuth from '../../helpers/axiosWithAuth'
-//  ==============================================
-=======
-import React, {useState} from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles } from '@material-ui/core/styles';
+import { PinDropSharp } from '@material-ui/icons';
 
 // ==============================================
 // ==============================================
 
-const init_form = { email: '', password: '' };
-
-// ==============================================
-// ==============================================
-
-const useStyles = makeStyles((theme) => ({
+const buttonStyles = makeStyles((theme) => ({
   root: {
     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
     border: 'dashed white 5px',
@@ -44,11 +34,6 @@ const useStyles = makeStyles((theme) => ({
       transform: 'scaleX(1.01) scaleY(1.01)'
     }
   },
-  '& > *': {
-    margin: theme.spacing(1),
-    width: '25ch',
-    border: 'dashed green 5px',
-  },
 }));
 
 const inputStyles = makeStyles({
@@ -64,7 +49,6 @@ const inputStyles = makeStyles({
 });
 
 // ==============================================
->>>>>>> 306f96eb15d501ef5118511b98a86be6cb3240d3
 // ==============================================
 
 const FormContainer = styled.div`
@@ -126,12 +110,9 @@ const Translucent = styled.span`
 // ==============================================
 // ==============================================
 
-<<<<<<< HEAD
-export default function RegistrationForm() {
 
-   /* const [registerInfo, setRegstierInfo] = useContext(AuthContext)
-    const [token, setToken] = useState(false)
-
+const init_form = { email: '', password: '' };
+   /* 
     const history = useHistory()
 
     const handleChange = e => {
@@ -155,19 +136,50 @@ export default function RegistrationForm() {
 
 
 */
-=======
-const RegistrationForm = () => {
+
+export default function RegistrationFormPg1  ({setFormData}) {
+
 
   // --------------------------------------------
 
-  const classes = useStyles();
+  const buttonClasses = buttonStyles();
   const inputClasses = inputStyles();
 
-  // --------------------------------------------
+  
 
+  // --------------------------------------------
+  
   const [form, setForm] = useState(init_form);
+  const [buttonOff, setButtonOff] = useState(false)
+  const [error, setError] = useState({
+                                        email:'',
+                                        password:''})
 
+  const history = useHistory();
   // --------------------------------------------
+
+
+   const formSchema = yup.object().shape({
+          email: yup.string().email(),
+          password:yup.string().required('Password Required').min(8, 'Password must be 8 to 30 charaters and incluse at least one number or special character, one upper case letter, and one lowercase letter')
+   })
+
+    const validateChange = (name, value) => {
+      yup.reach(formSchema, name)
+         .validate(value)
+         .then(valid => {
+           setError({
+             ...error, [name]: ''
+           })
+         .catch(err => {
+           setError({
+             ...error, [name]: err.error[0]})
+         })
+         })
+
+    }
+
+
 
   const onChange = (event) => {
     console.log('onChange() -- form: ', form);
@@ -177,10 +189,54 @@ const RegistrationForm = () => {
   
   // --------------------------------------------
 
->>>>>>> 306f96eb15d501ef5118511b98a86be6cb3240d3
+
+// =======
+  
+
+  const onPost = (event) => {
+    console.log('onPost() in registration-form component');
+    event.preventDefault();
+   
+
+
+    const formData = {
+      "email": `${form.email}`,
+      "password": `${form.password}`,
+    };
+    setFormData(formData);
+
+    const animate_page_transition_during_post_request = (() => {
+      const progress_bar = document.querySelector('#registrationFormPg1__LinearProgress');
+      progress_bar.classList.toggle('hide-visibility');
+
+      const duration = 2.5;
+      // gsap.to(inputRef.current, {opacity: 0, duration});
+      setTimeout(() => history.push("/registration-page-2"), duration * 1e3);
+    })();
+
+    axiosWithAuth()
+          .post('/api/auth/register', form) 
+          .then( res => {
+            console.log('info', res.data, form)
+            history.push('/login` ')
+          })
+          .catch(err => {
+            console.log('Registration failed', err)
+          })
+
+ 
+  };
+
+  // --------------------------------------------
+useEffect(()=>{
+  formSchema.isValid(form).then(valid => {
+    setButtonOff(!valid)
+  })
+},[form])
+
   return (
     <FormContainer>
-      <Form onSubmit={e => e.preventDefault()}>
+      <Form onSubmit={onPost}>
         <FormRow>
           <div className="top">
             <h3>CREATE YOUR APP ACCOUNT</h3>
@@ -194,53 +250,39 @@ const RegistrationForm = () => {
         </FormRow>
         <FormRow>
           <div className="top form-input">
-<<<<<<< HEAD
-            email
-            <input 
-              name='email'
-              type='email'
-              autoFocus
-              // value={registerInfo.email}
-              // onChange={handleChange}
-              />
-            {/* TODO: Place a text input field for email here */}
-          </div>
-          <div className="bottom form-input">
-            password
-            <input
-            name='password'
-            type='password'
-            // value={registerInfo.password}
-            // onChange={handleChange}
-            />
-            {/* TODO: Place a text input field for password here */}
-=======
-            <TextField id="standard-basic" label="email"
+            <TextField id="standard-basic" label="Email"
               name="email" 
               value={form.email} 
               onChange={onChange}
-              className={inputClasses.root}   
+              className={inputClasses.root} 
+              required
             />
+            
           </div>
           <div className="bottom form-input">
-            <TextField id="standard-basic" label="password"
+            <TextField id="standard-basic" label="Password"
               name="password" 
+              type='password'
               value={form.password} 
               onChange={onChange}
               className={inputClasses.root}
+              required
             />
->>>>>>> 306f96eb15d501ef5118511b98a86be6cb3240d3
           </div>
         </FormRow>
         <FormRow>
-          {/* Can display form error messages here */}
+        {error.email.length < 0 ? <Error>{error.email}</Error> : null }
+        {error.password.length < 0 ? <Error>{error.password}</Error> : null }
         </FormRow>
         <FormRow>
-          <Link to="/registration-page-2">
-            <Button className={classes.root}>NEXT</Button>
-          </Link>
+          
+          <Button disable={buttonOff} type="submit" className={buttonClasses.root}>
+            NEXT
+          </Button>
+
+          <LinearProgress className="hide-visibility" id="registrationFormPg1__LinearProgress"></LinearProgress>
+        
         </FormRow>
       </Form>
     </FormContainer>
-  );
-}
+  )} 

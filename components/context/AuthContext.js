@@ -6,12 +6,12 @@ export const AuthProvider = (props) => {
 
     const [loginInfo, setLoginInfo] = useState({email:'', password:''})
     const [registerInfo, setRegstierInfo] = useState({email:'', password:'',location:''})
-    const [tokenPass, setTokenPass] = useState(false)
+    
 
 
     return (
         <AuthContext.Provider
-        value={[loginInfo, setLoginInfo, registerInfo, setRegstierInfo,tokenPass, setTokenPass]}>{props.childdren}
+        value={[loginInfo, setLoginInfo, registerInfo, setRegstierInfo,tokenPass, setTokenPass]}>{props.children}
         </AuthContext.Provider>
         )
 }
