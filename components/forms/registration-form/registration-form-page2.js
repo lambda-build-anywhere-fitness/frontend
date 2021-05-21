@@ -1,94 +1,224 @@
-import React, {useEffect, useRef} from 'react';
-import { gsap } from "gsap";
+import React, {useState, useRef} from 'react';
+import { useHistory } from "react-router-dom";
+import styled from 'styled-components';
+
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import { makeStyles } from '@material-ui/core/styles';
+
+import gsap from 'gsap';
 
 // ==============================================
 // ==============================================
 
-const RegistrationFormPg2 = ({formData}) => {
+const buttonStyles = makeStyles((theme) => ({
+  root: {
+    borderRadius: 3,
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+
+    padding: '0 30px',
+
+    height: '60px',
+    width: '100%',
+    borderRadius: '5px',
+    border: 'none',
+    color: 'var(--text-primary)',
+    background: 'var(--translucent-primary)',
+    transition: 'box-shadow 0.3s ease, transform 0.3s ease',
+    '&:hover': { 
+      boxShadow: 'var(--hover-shadow)',
+      transform: 'scaleX(1.01) scaleY(1.01)'
+    }
+  },
+}));
+
+const inputStyles = makeStyles({
+  root: { position: 'absolue',
+    // left: '-100vw',
+    width: '100%',
+  '& *': {
+    color: 'white'
+  },
+  '& .MuiInput-underline::before': {
+    borderBottom: '2px solid var(--translucent-primary)',
+  },
+  },
+});
+
+// ==============================================
+// ==============================================
+
+const FormContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(90deg, var(--gradient-starting), var(--gradient-ending));
+  color: var(--text-primary);
+`; // FormContainer ``
+
+// ==============================================
+// ==============================================
+
+const Form = styled.form` 
+  display: grid;
+  grid-template-columns: 1fr;  
+  grid-template-rows: repeat(5, 1fr);
+  height: 700px;
+  width: 400px;
+  padding: 2%;
+  /* border: dashed green 5px; */
+`; // Form ``
+
+// ==============================================
+// ==============================================
+
+const FormRow = styled.div` 
+  /* position: absolute; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  text-align: center;
+  /* border: dotted purple 5px; */
+
+  .top, .bottom {
+    text-align: center;
+    /* border: solid white 2px; */
+
+    &.form-input { position: relative;
+      width: 100%;
+      text-align: left;
+      padding: 0 2%;
+      border: 0;
+      /* border: dashed yellow 1px; */
+    }
+  }
+`; // FormRow ``
+
+// ==============================================
+// ==============================================
+
+const Solid = styled.span`
+`; // Solid ``
+const Translucent = styled.span`
+  color: var(--translucent-primary);
+`; // Translucent ``
+  
+// ==============================================
+// ==============================================
+
+const RegistrationFormPg1 = ({setFormData}) => {
 
   // --------------------------------------------
 
   const inputRef = useRef(null);
+  const titleRef = useRef(null);
 
   // --------------------------------------------
 
-  const viewport_geometry = () => {
+  const buttonClasses = buttonStyles();
+  const inputClasses = inputStyles();
 
-    const viewport_width = window.innerWidth;
-    const viewport_height = window.innerHeight;
-    const viewport_center_x = viewport_width / 2;
-    const viewport_center_y = viewport_height / 2;
+  // --------------------------------------------
+  const init_form = { email: '', password: '' };
+  const [form, setForm] = useState(init_form);
 
-    const document_height1 = document.documentElement.offsetHeight;
-    const document_height2 = document.documentElement.getBoundingClientRect().height;
-    const scroll_offset = window.scrollY;
+  // --------------------------------------------
 
-    return {viewport_center_x, viewport_center_y, viewport_width, viewport_height};
+  const onChange = (event) => {
+    console.log('onChange() -- form: ', form);
+    const { name, value } = event.target;
+    setForm( {...form, [name]: value} );
   };
-
-  // --------------------------------------------
-
-  const element_geometry = (elem) => {
-
-    const geometry = elem.getBoundingClientRect(); 
-    // console.log('square_geometry: ', square_geometry);
-    
-    // (x1, y1) -----------------------|
-    //    |                            |
-    //    |                            |
-    //    |----------(x0, y0)----------|
-    //    |                            |
-    //    |                            |
-    //    |-------------------------(x2, y2)
-
-
-    const w = geometry.width;
-    const h = geometry.height;
-    const x1 = geometry.left;
-    const y1 = geometry.top;
-    const x2 = geometry.right;
-    const y2 = geometry.bottom;
-    const x0 = x1 + w/2;
-    const y0 = y1 + h/2;
-
-    return {x0, y0, x1, y1, x2, y2, w, h};
-  };
-
-  // --------------------------------------------
-
-  const timeline = gsap.timeline({
-    repeat: 0,
-    defaults: {duration: 1}
-  });
-  const {viewport_width, viewport_center_x} = viewport_geometry();
   
   // --------------------------------------------
 
-  useEffect(() => {
-    const elem = inputRef.current;
-    console.log('Modal.js, elem: ', elem);
+  const history = useHistory();
+  const onPost = (event) => {
+    console.log('onPost() in registration-form component');
+    event.preventDefault();
 
-    gsap.to(elem, {background: 'green', opacity: 1, duration: 0.5});
-    
-    const {x0} = element_geometry(elem);
-    // timeline.to(elem, { x: viewport_width + viewport_center_x - x0} );
-    timeline.to(elem, { x: 100 } );
-  }, []);
+    const formData = {
+      "email": `${form.email}`,
+      "password": `${form.password}`,
+    };
+    // setFormData(formData);
+
+    const animate_page_transition_during_post_request = (() => {
+      const progress_bar = document.querySelector('#registrationFormPg1__LinearProgress');
+      progress_bar.classList.toggle('hide-visibility');
+
+      const duration = 2.5;
+      gsap.to(inputRef.current, {x: '100vw', delay: duration - 0.5});
+      setTimeout(() => history.push("/registration-page-2"), duration * 1e3);
+    })();
+
+
+
+    // axios.post('http://localhost:5000/friends', user)
+    //   .then((response) => {
+    //     console.log(response.data);
+    //     setUsers(response.data);
+    //   });
+
+    // Orlando TODO: Make POST request to backend here
+    // Orlando TODO: Make POST request to backend here
+    // Orlando TODO: Make POST request to backend here
+    // Orlando TODO: Make POST request to backend here
+    // Orlando TODO: Make POST request to backend here
+  };
 
   // --------------------------------------------
 
   return (
-    <div ref={inputRef}>
-      <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', width: '100vw', border: 'solid red 10px'}}>
-        <div style={{height: '80vh', width: '80vw', display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly'}}>
-          <p>Form <strong>Email</strong> Field (in State): {formData.email}</p>
-          <hr />
-          <p>Form <strong>Password</strong> Field (in State): {formData.password}</p>
-          <hr />
-          <p> <strong>TODO:</strong> Make button click on previous page make POST request to backend with data from form that is currently in state :)</p>
-        </div>
-      </div>
-    </div>
+    <FormContainer>
+      <Form onSubmit={onPost}>
+        <FormRow>
+          <div className="top">
+            <h3>CREATE YOUR APP ACCOUNT</h3>
+          </div>
+          <div className="bottom">
+            <Solid>1</Solid> <Solid>&#8212;</Solid> <Translucent>2</Translucent> <Translucent>&#8212;</Translucent> <Translucent>3</Translucent>
+          </div>
+        </FormRow>
+        <FormRow>
+          <h4>New to the app? Let's create your login!</h4>
+        </FormRow>
+        <FormRow>
+          <div className="top form-input">
+            <TextField id="standard-basic" label="email"
+              name="email" 
+              value={form.email} 
+              onChange={onChange}
+              className={inputClasses.root}
+              ref={inputRef}
+            />
+          </div>
+          <div className="bottom form-input">
+            <TextField id="standard-basic" label="password"
+              name="password" 
+              value={form.password} 
+              onChange={onChange}
+              className={inputClasses.root}
+            />
+          </div>
+        </FormRow>
+        <FormRow>
+          {/* Can display form error messages here */}
+        </FormRow>
+        <FormRow>
+          
+          <Button type="submit" className={buttonClasses.root}>
+            NEXT
+          </Button>
+
+          <LinearProgress className="hide-visibility" id="registrationFormPg1__LinearProgress"></LinearProgress>
+        
+        </FormRow>
+      </Form>
+    </FormContainer>
   );
 }
-export default RegistrationFormPg2;
+export default RegistrationFormPg1;

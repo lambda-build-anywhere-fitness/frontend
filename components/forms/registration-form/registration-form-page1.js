@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import { useHistory } from "react-router-dom";
 import styled from 'styled-components';
 
@@ -6,6 +6,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles } from '@material-ui/core/styles';
+
+import gsap from 'gsap';
 
 // ==============================================
 // ==============================================
@@ -32,7 +34,8 @@ const buttonStyles = makeStyles((theme) => ({
 }));
 
 const inputStyles = makeStyles({
-  root: {
+  root: { position: 'absolue',
+    // left: '-100vw',
     width: '100%',
   '& *': {
     color: 'white'
@@ -59,7 +62,7 @@ const FormContainer = styled.div`
 // ==============================================
 // ==============================================
 
-const Form = styled.form`
+const Form = styled.form` 
   display: grid;
   grid-template-columns: 1fr;  
   grid-template-rows: repeat(5, 1fr);
@@ -72,7 +75,8 @@ const Form = styled.form`
 // ==============================================
 // ==============================================
 
-const FormRow = styled.div`
+const FormRow = styled.div` 
+  /* position: absolute; */
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -83,7 +87,7 @@ const FormRow = styled.div`
     text-align: center;
     /* border: solid white 2px; */
 
-    &.form-input {
+    &.form-input { position: relative;
       width: 100%;
       text-align: left;
       padding: 0 2%;
@@ -106,6 +110,11 @@ const Translucent = styled.span`
 // ==============================================
 
 const RegistrationFormPg1 = ({setFormData}) => {
+
+  // --------------------------------------------
+
+  const inputRef = useRef(null);
+  const titleRef = useRef(null);
 
   // --------------------------------------------
 
@@ -142,8 +151,11 @@ const RegistrationFormPg1 = ({setFormData}) => {
       progress_bar.classList.toggle('hide-visibility');
 
       const duration = 2.5;
-      // gsap.to(inputRef.current, {opacity: 0, duration});
+      gsap.to(inputRef.current, {x: '100vw', delay: duration - 0.5});
       setTimeout(() => history.push("/registration-page-2"), duration * 1e3);
+
+      // animate "New to the app? Let's create your login!"
+      gsap.to(titleRef.current, { opacity: 0 });
     })();
 
 
@@ -175,7 +187,7 @@ const RegistrationFormPg1 = ({setFormData}) => {
           </div>
         </FormRow>
         <FormRow>
-          <h4>New to the app? Let's create your login!</h4>
+          <h4 ref={titleRef}>New to the app? Let's create your login!</h4>
         </FormRow>
         <FormRow>
           <div className="top form-input">
@@ -183,7 +195,8 @@ const RegistrationFormPg1 = ({setFormData}) => {
               name="email" 
               value={form.email} 
               onChange={onChange}
-              className={inputClasses.root}   
+              className={inputClasses.root}
+              ref={inputRef}
             />
           </div>
           <div className="bottom form-input">
