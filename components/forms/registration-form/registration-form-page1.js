@@ -148,13 +148,13 @@ const RegistrationFormPg1 = ({setFormData}) => {
     setFormData(formData);
 
     const animate_page_transition_during_post_request = (() => {
-      const progress_bar = document.querySelector('#registrationFormPg1__LinearProgress');
-      progress_bar.classList.toggle('hide-visibility');
+      // const progress_bar = document.querySelector('#registrationFormPg1__LinearProgress');
+      // progress_bar.classList.toggle('hide-visibility');
 
-      const duration = 2.5;
+      const duration = 0.3;
       gsap.to([input1Ref.current, input2Ref.current], {
         x: '100vw', 
-        delay: duration - 0.5, 
+        delay: 0, 
         ease: "power2.out",
         stagger: 0.15,
       });
