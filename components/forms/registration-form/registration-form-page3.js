@@ -4,7 +4,7 @@ import { gsap } from "gsap";
 // ==============================================
 // ==============================================
 
-const RegistrationFormPg3 = ({formData, formData_2}) => {
+const RegistrationFormPg3 = ({formData}) => {
 
   // --------------------------------------------
 
@@ -24,7 +24,7 @@ const RegistrationFormPg3 = ({formData, formData_2}) => {
       <p>Form <strong>Email</strong> Field (in State): {formData.email}</p>
       {/* <p ref={inputRef} style={{position: 'absolute',                     border: 'dashed hotpink 2px'}}>Form <strong>Email</strong> Field (in State): {formData.email}</p> */}
       <p>Form <strong>Password</strong> Field (in State): {formData.password}</p>
-      <p>Form <strong>First Name</strong> Field (in State): {formData_2.first_name}</p>
+      <p>Form <strong>First Name</strong> Field (in State): {formData.first_name}</p>
     </div>
   );
 }

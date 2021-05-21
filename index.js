@@ -12,14 +12,16 @@ import RegistrationFormPg3 from './components/forms/registration-form/registrati
 function App() {
   
   // -------------------------------------------
-
-  const [formData, setFormData]     = useState({ email: '', password: ''});
+  const [formData,   setFormData  ] = useState({ email: '', password: '', first_name: '', last_name: '', country: '', mailing_list: false });
+  const [formData_1, setFormData_1] = useState({ email: '', password: '' });
   const [formData_2, setFormData_2] = useState({ first_name: '', last_name: '', country: '', mailing_list: false });
   useEffect(() => {
+    setFormData({...formData_1, ...formData_2});
     console.log('Page 1 form data in top-level component: ', formData);
-  }, [formData]);
+  }, [formData_1]);
   useEffect(() => {
-    console.log('Page 2 form data in top-level component: ', formData_2);
+    setFormData({...formData_1, ...formData_2});
+    console.log('Page 2 form data in top-level component: ', formData);
   }, [formData_2]);
 
   // -------------------------------------------
@@ -27,7 +29,7 @@ function App() {
   return (
     <Router>
       <Route exact path="/">
-        <RegistrationFormPg1 setFormData={setFormData}></RegistrationFormPg1>
+        <RegistrationFormPg1 setFormData={setFormData_1}></RegistrationFormPg1>
       </Route>
 
       <Route path="/registration-page-2">
@@ -35,7 +37,7 @@ function App() {
       </Route>
 
       <Route path="/registration-page-3">
-        <RegistrationFormPg3 formData={formData} formData_2={formData_2}></RegistrationFormPg3>
+        <RegistrationFormPg3 formData={formData}></RegistrationFormPg3>
       </Route>
     </Router>
   );

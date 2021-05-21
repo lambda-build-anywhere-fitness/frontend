@@ -215,7 +215,7 @@ const RegistrationFormPg1 = ({setFormData}) => {
 
         <FormRow>
           <div className="top form-input">
-            <TextField id="standard-basic" label="first_name"
+            <TextField id="standard-basic" label="first name"
               name="first_name" 
               value={form.first_name} 
               onChange={onChange}
@@ -224,7 +224,7 @@ const RegistrationFormPg1 = ({setFormData}) => {
             />
           </div>
           <div className="middle form-input">
-            <TextField id="standard-basic" label="last_name"
+            <TextField id="standard-basic" label="last name"
               name="last_name" 
               value={form.last_name} 
               onChange={onChange}
