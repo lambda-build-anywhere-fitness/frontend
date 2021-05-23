@@ -11,12 +11,12 @@ import Button from '@material-ui/core/Button';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles } from '@material-ui/core/styles';
 
+
 // ==============================================
 // ==============================================
 
-const buttonStyles = makeStyles((theme) => ({
+const buttonStyles = makeStyles(() => ({
   root: {
-    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
     padding: '0 30px',
     height: '60px',
     width: '100%',
@@ -24,21 +24,22 @@ const buttonStyles = makeStyles((theme) => ({
     border: 'none',
     color: 'var(--text-primary)',
     background: 'var(--translucent-primary)',
-    transition: 'box-shadow 0.3s ease, transform 0.3s ease',
+    transition: 'all 0.3s ease',
     '&:hover': { 
       boxShadow: 'var(--hover-shadow)',
-      transform: 'scaleX(1.01) scaleY(1.01)'
+      transform: 'scaleX(1.01) scaleY(1.01)',
+      color: 'var(--text-secondary)'
     }
   },
 }));
 
 const inputStyles = makeStyles({
   root: {
-  '& *': { color: 'var(--text-primary) !important' },
+  '& *': { color: 'var(--text-primary)' },
   '& .MuiInput-underline::before': {
     borderBottom: '2px solid var(--translucent-primary)',
   },
-  '&.MuiFormLabel-root': {color: 'white'}
+  '&.MuiFormLabel-root': {color: 'var(--text-primary)'}
   },
 });
 
@@ -115,9 +116,10 @@ const RegistrationPage = () => {
 
   return (
     <form onSubmit={onPost} style={{display: 'grid', placeItems: 'center', height: '100vh', width: '100vw', background: 'linear-gradient(90deg, var(--gradient-starting), var(--gradient-ending))'}}>
-      <div style={{display: 'flex', flexDirection: 'column', justifyContent:'space-evenly', alignItems: 'center', height: '80%', width: '70vw', maxWidth: '500px'}}>
+      <div style={{display: 'flex', flexDirection: 'column', justifyContent:'space-evenly', alignItems: 'center', height: '80%', width: '70vw', maxWidth: '500px', color: 'var(--text-primary)'}}>
+        <h3>CREATE YOUR APP ACCOUNT</h3>
         <FormControl style={{width: '100%'}}>
-          <TextField name="name"     label="name"     onChange={handleTextChange1} className={inputClasses.root}/>
+          <TextField color="primary" name="name"     label="name"     onChange={handleTextChange1} className={inputClasses.root}/>
           <TextField name="username" label="username" onChange={handleTextChange2} className={inputClasses.root}/>
           <TextField name="email"    label="email"    onChange={handleTextChange3} className={inputClasses.root}/>
           <TextField name="password" label="password" onChange={handleTextChange4} className={inputClasses.root}/>
