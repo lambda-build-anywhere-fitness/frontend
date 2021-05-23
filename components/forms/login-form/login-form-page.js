@@ -1,11 +1,9 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useRef} from 'react';
 import { useHistory } from "react-router-dom";
 import styled from 'styled-components';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-// import Switch from '@material-ui/core/Switch';
-import Checkbox from '@material-ui/core/Checkbox';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -14,7 +12,7 @@ import gsap from 'gsap';
 // ==============================================
 // ==============================================
 
-const buttonStyles = makeStyles((theme) => ({
+const buttonStyles = makeStyles(() => ({
   root: {
     borderRadius: 3,
     boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
@@ -57,7 +55,7 @@ const FormContainer = styled.div`
   align-items: center;
   height: 100vh;
   width: 100vw;
-  background: linear-gradient(90deg, var(--gradient-starting), var(--gradient-ending));
+  background: linear-gradient(90deg, var(--gradient-login-starting), var(--gradient-login-ending));
   color: var(--text-primary);
 `; // FormContainer ``
 
@@ -67,7 +65,7 @@ const FormContainer = styled.div`
 const Form = styled.form` 
   display: grid;
   grid-template-columns: 1fr;  
-  grid-template-rows: 1fr 2fr 1fr 1fr;
+  grid-template-rows: repeat(5, 1fr);
   height: 700px;
   width: 400px;
   padding: 2%;
@@ -85,7 +83,7 @@ const FormRow = styled.div`
   text-align: center;
   /* border: dotted purple 5px; */
 
-  .top, .middle, .bottom {
+  .top, .bottom {
     text-align: center;
     /* border: solid white 2px; */
 
@@ -111,39 +109,13 @@ const Translucent = styled.span`
 // ==============================================
 // ==============================================
 
-const RegistrationFormPg2 = ({setFormData}) => {
-
-  // --------------------------------------------
-
-  useEffect(() => {
-    const timeline = gsap.timeline();
-    timeline.to([translucent1Ref.current, translucent2Ref.current], { 
-      color: 'white',
-      textShadow: '1px 1px 2px white, 0 0 1em green, 0 0 0.2em white',
-      scale: 2.1,
-      duration: 0.3
-    });
-    timeline.to([translucent1Ref.current, translucent2Ref.current], { 
-      color: 'white',
-      textShadow: '0px 0px 0px white, 0 0 0em green, 0 0 0em white',
-      scale: 2.1,
-      duration: 0.3,
-    });
-    timeline.from([input1Ref.current, input2Ref.current, input3Ref.current], {
-      x: '-100vw', 
-      ease: "power2.out",
-      stagger: 0.15
-    });
-
-  }, []);
+const LoginFormPg = ({setFormData}) => {
 
   // --------------------------------------------
 
   const input1Ref = useRef(null);
   const input2Ref = useRef(null);
-  const input3Ref = useRef(null);
-  const translucent1Ref = useRef(null);
-  const translucent2Ref = useRef(null);
+  const titleRef = useRef(null);
 
   // --------------------------------------------
 
@@ -151,21 +123,14 @@ const RegistrationFormPg2 = ({setFormData}) => {
   const inputClasses = inputStyles();
 
   // --------------------------------------------
-  const init_form = { first_name: '', last_name: '', country: '', mailing_list: false };
+  const init_form = { email: '', password: '' };
   const [form, setForm] = useState(init_form);
-  const [checked, setChecked] = useState(true);
-
-  // --------------------------------------------
-
-  const toggleCheckbox = event => {
-    setChecked(event.target.checked);
-    console.log(event.target);
-  };
 
   // --------------------------------------------
 
   const onChange = (event) => {
-    const { name, value, type, checked } = event.target;
+    console.log('onChange() -- form: ', form);
+    const { name, value } = event.target;
     setForm( {...form, [name]: value} );
   };
   
@@ -175,31 +140,30 @@ const RegistrationFormPg2 = ({setFormData}) => {
   const onPost = (event) => {
     console.log('onPost() in registration-form component');
     event.preventDefault();
+
     const formData = {
-      "first_name": `${form.first_name}`,
-      "last_name": `${form.last_name}`,
-      "mailing_list": false,
+      "email": `${form.email}`,
+      "password": `${form.password}`,
     };
     setFormData(formData);
+
     const animate_page_transition_during_post_request = (() => {
-      const progress_bar = document.querySelector('#registrationFormPg1__LinearProgress');
+      const progress_bar = document.querySelector('#loginFormPg1__LinearProgress');
       progress_bar.classList.toggle('hide-visibility');
-      const duration = 0.45;
-      gsap.to([input1Ref.current, input2Ref.current, input3Ref.current], {
-        duration,
+
+      const duration = 0.3;
+      gsap.to([input1Ref.current, input2Ref.current], {
         x: '100vw', 
-        delay: 2, 
+        delay: 0, 
         ease: "power2.out",
         stagger: 0.15,
       });
-      
-      setTimeout(() => history.push("/registration-page-3"), 4 * duration * 1e3);
+      setTimeout(() => history.push("/"), duration * 1e3);
+
+      // animate:  "New to the app? Let's create your login!"
+      gsap.to(titleRef.current, { opacity: 0 });
     })();
-    // axios.post('http://localhost:5000/x', user)
-    //   .then((response) => {
-    //     console.log(response.data);
-    //     setUsers(response.data);
-    //   });
+
   };
 
   // --------------------------------------------
@@ -209,81 +173,49 @@ const RegistrationFormPg2 = ({setFormData}) => {
       <Form onSubmit={onPost}>
         <FormRow>
           <div className="top">
-            <h3>CREATE YOUR APP ACCOUNT</h3>
+            <h3>LOG IN</h3>
           </div>
           <div className="bottom">
-            <Solid>1</Solid> <Solid>&#8212;</Solid> <Translucent ref={translucent1Ref}>2</Translucent> <Translucent ref={translucent2Ref}>&#8212;</Translucent> <Translucent>3</Translucent>
+            {/* <Solid>1</Solid> <Solid>&#8212;</Solid> <Translucent>2</Translucent> <Translucent>&#8212;</Translucent> <Translucent>3</Translucent> */}
           </div>
         </FormRow>
-
+        <FormRow>
+          <h4 ref={titleRef}>Enter your login info!</h4>
+        </FormRow>
         <FormRow>
           <div className="top form-input">
-            <TextField id="standard-basic" label="first name"
-              name="first_name" 
-              value={form.first_name} 
+            <TextField id="standard-basic" label="email"
+              name="email" 
+              value={form.email} 
               onChange={onChange}
               className={inputClasses.root}
               ref={input1Ref}
             />
           </div>
-          <div className="middle form-input">
-            <TextField id="standard-basic" label="last name"
-              name="last_name" 
-              value={form.last_name} 
+          <div className="bottom form-input">
+            <TextField id="standard-basic" label="password"
+              name="password" 
+              value={form.password} 
               onChange={onChange}
               className={inputClasses.root}
               ref={input2Ref}
             />
           </div>
-          <div className="bottom form-input">
-            {/* <TextField id="standard-basic" label="country"
-              name="country" 
-              value={form.country} 
-              onChange={onChange}
-              className={inputClasses.root}
-              ref={input3Ref}
-            /> */}
-
-            <div className="switch-container" ref={input3Ref}>
-              {/* <Switch 
-                checked={form.mailing_list}
-                onChange={onChange}
-                name="mailing_list" 
-              ></Switch> */}
-
-              {/* <Checkbox
-                checked={form.mailing_list}
-                onChange={onChange}
-                name="mailing_list" 
-                inputProps={{ 'aria-label': 'primary checkbox' }}
-              /> */}
-              Get Emails with news and promo?
-              <Checkbox
-                checked={false}
-                onChange={toggleCheckbox}
-                name="mailing_list" 
-              />
-              
-            </div>
-
-          </div>
         </FormRow>
-
         <FormRow>
           {/* Can display form error messages here */}
         </FormRow>
-
         <FormRow>
           
           <Button type="submit" className={buttonClasses.root}>
             NEXT
           </Button>
 
-          <LinearProgress className="hide-visibility" id="registrationFormPg1__LinearProgress"></LinearProgress>
+          <LinearProgress className="hide-visibility" id="loginFormPg1__LinearProgress"></LinearProgress>
         
         </FormRow>
       </Form>
     </FormContainer>
   );
 }
-export default RegistrationFormPg2;
+export default LoginFormPg;

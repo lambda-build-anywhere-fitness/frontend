@@ -7,6 +7,8 @@ import RegistrationFormPg1 from './components/forms/registration-form/registrati
 import RegistrationFormPg2 from './components/forms/registration-form/registration-form-page2.js';
 import RegistrationFormPg3 from './components/forms/registration-form/registration-form-page3.js';
 
+import LoginFormPg from './components/forms/login-form/login-form-page.js';
+
 // ==============================================
 
 function App() {
@@ -23,6 +25,14 @@ function App() {
     setFormData({...formData_1, ...formData_2});
     console.log('Page 2 form data in top-level component: ', formData);
   }, [formData_2]);
+  
+  // -------------------------------------------
+
+  const [formData_login,   setFormData_login  ] = useState({ email: '', password: '' });
+  useEffect(() => {
+    setFormData({...formData_1, ...formData_2});
+    console.log('Page 1 form data in top-level component: ', formData);
+  }, [formData_1]);
 
   // -------------------------------------------
 
@@ -39,6 +49,17 @@ function App() {
       <Route path="/registration-page-3">
         <RegistrationFormPg3 formData={formData}></RegistrationFormPg3>
       </Route>
+
+
+
+      <Route path="/login-page">
+        <LoginFormPg setFormData={setFormData_1}></LoginFormPg>
+      </Route>
+
+      <Route path="/home">
+        <h1>Home</h1>
+      </Route>
+
     </Router>
   );
 }

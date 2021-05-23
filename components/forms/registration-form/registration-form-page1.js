@@ -206,10 +206,35 @@ useEffect (() => {
 
   const history = useHistory();
   const onPost = (event) => {
+
+    // - - - - - - - - - - - - - - - - - - - - - 
+
+    const animate_page_transition_during_post_request = (() => {
+      // const progress_bar = document.querySelector('#registrationFormPg1__LinearProgress');
+      // progress_bar.classList.toggle('hide-visibility');
+
+      const duration = 0.45;
+      gsap.to([input1Ref.current, input2Ref.current], {
+        duration,
+        x: '100vw', 
+        delay: 0, 
+        ease: "power2.out",
+        stagger: 0.15,
+      });
+      // setTimeout(() => history.push("/registration-page-2"), duration * 1e3);
+
+      // animate:  "New to the app? Let's create your login!"
+      gsap.to(titleRef.current, { opacity: 0 });
+    })();
+
+    // - - - - - - - - - - - - - - - - - - - - - 
+
     console.log('onPost() in registration-form component');
     event.preventDefault();
     axios.post('https://anywhere-fitness-ptbw.herokuapp.com/api/auth/register', form)
-         .then(res => history.push('/register'))
+         .then(res => {
+           history.push('/login-page')
+          })
          .catch(err => console.log(err))
          setForm(init_form)
 
@@ -218,24 +243,6 @@ useEffect (() => {
       "password": `${form.password}`,
     };
     setFormData(formData);
-
-    const animate_page_transition_during_post_request = (() => {
-      // const progress_bar = document.querySelector('#registrationFormPg1__LinearProgress');
-      // progress_bar.classList.toggle('hide-visibility');
-
-      const duration = 0.3;
-      gsap.to([input1Ref.current, input2Ref.current], {
-        x: '100vw', 
-        delay: 0, 
-        ease: "power2.out",
-        stagger: 0.15,
-      });
-      setTimeout(() => history.push("/registration-page-2"), duration * 1e3);
-
-      // animate:  "New to the app? Let's create your login!"
-      gsap.to(titleRef.current, { opacity: 0 });
-    })();
-
   };
 
   // --------------------------------------------
