@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import { useHistory } from "react-router-dom";
 import * as yup from 'yup'
+import React, {useState, useRef} from 'react';
+import { useHistory } from "react-router-dom";
 import styled from 'styled-components';
 import axiosWithAuth from '../../helpers/axiosWithAuth'
 import TextField from '@material-ui/core/TextField';
@@ -9,17 +11,16 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import { PinDropSharp } from '@material-ui/icons';
 
+import gsap from 'gsap';
+
 // ==============================================
 // ==============================================
 
 const buttonStyles = makeStyles((theme) => ({
   root: {
-    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-    border: 'dashed white 5px',
     borderRadius: 3,
     boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-    color: 'white',
-    height: 48,
+
     padding: '0 30px',
 
     height: '60px',
@@ -37,7 +38,8 @@ const buttonStyles = makeStyles((theme) => ({
 }));
 
 const inputStyles = makeStyles({
-  root: {
+  root: { position: 'absolue',
+    // left: '-100vw',
     width: '100%',
   '& *': {
     color: 'white'
@@ -64,7 +66,7 @@ const FormContainer = styled.div`
 // ==============================================
 // ==============================================
 
-const Form = styled.form`
+const Form = styled.form` 
   display: grid;
   grid-template-columns: 1fr;  
   grid-template-rows: repeat(5, 1fr);
@@ -77,7 +79,8 @@ const Form = styled.form`
 // ==============================================
 // ==============================================
 
-const FormRow = styled.div`
+const FormRow = styled.div` 
+  /* position: absolute; */
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -88,7 +91,7 @@ const FormRow = styled.div`
     text-align: center;
     /* border: solid white 2px; */
 
-    &.form-input {
+    &.form-input { position: relative;
       width: 100%;
       text-align: left;
       padding: 0 2%;
@@ -144,11 +147,23 @@ export default function RegistrationFormPg1  ({setFormData}) {
 
   const buttonClasses = buttonStyles();
   const inputClasses = inputStyles();
+const RegistrationFormPg1 = ({setFormData}) => {
+
+  // --------------------------------------------
+
+  const input1Ref = useRef(null);
+  const input2Ref = useRef(null);
+  const titleRef = useRef(null);
 
   
 
   // --------------------------------------------
   
+  const buttonClasses = buttonStyles();
+  const inputClasses = inputStyles();
+
+  // --------------------------------------------
+  const init_form = { email: '', password: '' };
   const [form, setForm] = useState(init_form);
   const [buttonOff, setButtonOff] = useState(false)
   const [error, setError] = useState({
@@ -198,6 +213,10 @@ export default function RegistrationFormPg1  ({setFormData}) {
     event.preventDefault();
    
 
+  const history = useHistory();
+  const onPost = (event) => {
+    console.log('onPost() in registration-form component');
+    event.preventDefault();
 
     const formData = {
       "email": `${form.email}`,
@@ -233,6 +252,25 @@ useEffect(()=>{
     setButtonOff(!valid)
   })
 },[form])
+      // const progress_bar = document.querySelector('#registrationFormPg1__LinearProgress');
+      // progress_bar.classList.toggle('hide-visibility');
+
+      const duration = 0.3;
+      gsap.to([input1Ref.current, input2Ref.current], {
+        x: '100vw', 
+        delay: 0, 
+        ease: "power2.out",
+        stagger: 0.15,
+      });
+      setTimeout(() => history.push("/registration-page-2"), duration * 1e3);
+
+      // animate:  "New to the app? Let's create your login!"
+      gsap.to(titleRef.current, { opacity: 0 });
+    })();
+
+  };
+
+  // --------------------------------------------
 
   return (
     <FormContainer>
@@ -246,7 +284,7 @@ useEffect(()=>{
           </div>
         </FormRow>
         <FormRow>
-          <h4>New to the app? Let's create your login!</h4>
+          <h4 ref={titleRef}>New to the app? Let's create your login!</h4>
         </FormRow>
         <FormRow>
           <div className="top form-input">
@@ -256,6 +294,8 @@ useEffect(()=>{
               onChange={onChange}
               className={inputClasses.root} 
               required
+              className={inputClasses.root}
+              ref={input1Ref}
             />
             
           </div>
@@ -267,6 +307,7 @@ useEffect(()=>{
               onChange={onChange}
               className={inputClasses.root}
               required
+              ref={input2Ref}
             />
           </div>
         </FormRow>
@@ -277,6 +318,7 @@ useEffect(()=>{
         <FormRow>
           
           <Button disable={buttonOff} type="submit" className={buttonClasses.root}>
+          <Button type="submit" className={buttonClasses.root}>
             NEXT
           </Button>
 
@@ -285,4 +327,10 @@ useEffect(()=>{
         </FormRow>
       </Form>
     </FormContainer>
+<<<<<<< HEAD:components/forms/registration-form/registration-form-page1.js
   )} 
+=======
+  );
+}
+export default RegistrationFormPg1;
+>>>>>>> 868aa4a0ac4913ed8dd48af5aac1696f9ce0ff95:components/forms/registration-form/registration-form.js

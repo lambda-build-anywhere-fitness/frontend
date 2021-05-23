@@ -3,30 +3,41 @@ import { render } from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './global-styles/styles.scss'; // global styles
 
-import RegistrationFormPg1  from './components/forms/registration-form/registration-form-page1.js';
-import RegistrationFormPg2  from './components/forms/registration-form/registration-form-page2.js';
+import RegistrationFormPg1 from './components/forms/registration-form/registration-form-page1.js';
+import RegistrationFormPg2 from './components/forms/registration-form/registration-form-page2.js';
+import RegistrationFormPg3 from './components/forms/registration-form/registration-form-page3.js';
 
 // ==============================================
 
 function App() {
   
   // -------------------------------------------
-
-  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [formData,   setFormData  ] = useState({ email: '', password: '', first_name: '', last_name: '', country: '', mailing_list: false });
+  const [formData_1, setFormData_1] = useState({ email: '', password: '' });
+  const [formData_2, setFormData_2] = useState({ first_name: '', last_name: '', country: '', mailing_list: false });
   useEffect(() => {
-    console.log('formData in top-level component: ', formData);
-  }, [formData]);
+    setFormData({...formData_1, ...formData_2});
+    console.log('Page 1 form data in top-level component: ', formData);
+  }, [formData_1]);
+  useEffect(() => {
+    setFormData({...formData_1, ...formData_2});
+    console.log('Page 2 form data in top-level component: ', formData);
+  }, [formData_2]);
 
   // -------------------------------------------
 
   return (
     <Router>
       <Route exact path="/">
-        <RegistrationFormPg1 setFormData={setFormData}></RegistrationFormPg1>
+        <RegistrationFormPg1 setFormData={setFormData_1}></RegistrationFormPg1>
       </Route>
 
       <Route path="/registration-page-2">
-        <RegistrationFormPg2 formData={formData}></RegistrationFormPg2>
+        <RegistrationFormPg2 setFormData={setFormData_2}></RegistrationFormPg2>
+      </Route>
+
+      <Route path="/registration-page-3">
+        <RegistrationFormPg3 formData={formData}></RegistrationFormPg3>
       </Route>
     </Router>
   );
