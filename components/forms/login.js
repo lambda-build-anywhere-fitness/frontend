@@ -100,7 +100,7 @@ const LoginForm = ({setLoggedIn, setRole}) => {
         <div style={{position: 'relative', height: '60px', width: '100%'}}>
           <div id="login__register-link" style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly', height: '100%', width: '100%'}}>
             <p>Need to sign up?</p>
-            <Link to="/login">Register</Link>
+            <Link to="/register">Register</Link>
           </div>
           <Grid spacing={1} container style={{position: 'absolute', top: '50%'}}>
             <Grid xs item>
