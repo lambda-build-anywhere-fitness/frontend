@@ -5,6 +5,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import Button from '@material-ui/core/Button';
 
 // ==============================================
 // ==============================================
@@ -39,9 +40,11 @@ const RegistrationPage = () => {
   // ============================================
 
   return (
-    <form>
-      <TextField name="email"    label="email"    onChange={handleTextChange1}/>
-      <TextField name="password" label="password" onChange={handleTextChange2}/>
+    <form style={{display: 'flex', flexDirection: 'column', justifyContent:'space-evenly', alignItems: 'center', height: '100vh', width: '100vw', border: 'dashed hotpink 5px'}}>
+      <FormControl>
+        <TextField name="email"    label="email"    onChange={handleTextChange1}/>
+        <TextField name="password" label="password" onChange={handleTextChange2}/>
+      </FormControl>
 
       <FormControl component="fieldset">
         <FormLabel component="legend">User Type</FormLabel>
@@ -50,13 +53,16 @@ const RegistrationPage = () => {
           <FormControlLabel value="instructor" control={<Radio />} label="Instructor" />
 
           {radio_value == 'instructor' ? 
-            <TextField name="auth-code" label="Auth Code" />
-            :
-            null
+            <TextField name="auth-code" label="Auth Code" /> :
+            <TextField name="auth-code" label="Auth Code" style={{visibility: 'hidden'}}/>
           }
           
         </RadioGroup>
       </FormControl>
+
+      <Button variant="contained" type="submit">
+        SUBMIT
+      </Button>
     </form>
   );
 };
