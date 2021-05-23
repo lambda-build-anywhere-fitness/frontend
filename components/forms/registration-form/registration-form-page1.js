@@ -209,9 +209,9 @@ useEffect (() => {
 
     // - - - - - - - - - - - - - - - - - - - - - 
 
-    const animate_page_transition_during_post_request = (() => {
-      // const progress_bar = document.querySelector('#registrationFormPg1__LinearProgress');
-      // progress_bar.classList.toggle('hide-visibility');
+    const animate_page_transition_during_post_request = () => {
+      const progress_bar = document.querySelector('#registrationFormPg1__LinearProgress');
+      progress_bar.classList.toggle('hide-visibility');
 
       const duration = 0.45;
       gsap.to([input1Ref.current, input2Ref.current], {
@@ -225,7 +225,8 @@ useEffect (() => {
 
       // animate:  "New to the app? Let's create your login!"
       gsap.to(titleRef.current, { opacity: 0 });
-    })();
+    };
+    animate_page_transition_during_post_request();
 
     // - - - - - - - - - - - - - - - - - - - - - 
 
