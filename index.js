@@ -1,7 +1,6 @@
 import React, {useState, useEffect}       from 'react';
 import { render }                         from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import LinearProgress from '@material-ui/core/LinearProgress';
 
 // ==============================================
 // ==============================================
@@ -16,9 +15,8 @@ import { ThemeProvider } from '@material-ui/styles';
 
 const theme = createMuiTheme({
   palette: {
-    primary: {
-      main: '#ffffff',
-    },
+    primary:   {main: '#ffffff'},
+    secondary: {main: '#000000'}
   },
 });
 
