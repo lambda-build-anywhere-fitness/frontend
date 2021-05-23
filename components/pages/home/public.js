@@ -6,8 +6,6 @@ import { Link } from 'react-router-dom';
 
 const PublicHomePage = () => {
 
-  // --------------------------------------------
-
   return (
     <div style={{display: 'grid', placeItems: 'center', height: '100vh', width: '100vw', background: 'lightblue'}}>
       <h1>Public HomePage</h1>
@@ -19,11 +17,9 @@ const PublicHomePage = () => {
         <Link to="/register">Register</Link>
       </div>
     </div>
-  );
+  ); // return
 
-  // --------------------------------------------
-
-};
+}; // PublicHomePage
 
 // ==============================================
 // ==============================================

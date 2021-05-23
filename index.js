@@ -1,6 +1,6 @@
 import React, {useState, useEffect}       from 'react';
 import { render }                         from 'react-dom';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 
 // ==============================================
 // ==============================================
@@ -34,8 +34,10 @@ import LoginPage          from './components/pages/login/login.js';
 
 const App = () => {
 
+  // --------------------------------------------
+
   const [logged_in, setLoggedIn] = useState(false);
-  const [role, setRole] = useState('client');
+  const [role, setRole] = useState(null);
 
   // --------------------------------------------
 
@@ -48,11 +50,11 @@ const App = () => {
       </Route>
 
       <Route path="/client-home">
-        <ClientHomePage />
+        {logged_in && role=='client' ? <ClientHomePage /> : <Redirect to="/login" />}
       </Route>
 
       <Route path="/instructor-home">
-        <InstructorHomePage />
+        {logged_in && role=='instructor' ? <InstructorHomePage /> : <Redirect to="/login" />}
       </Route>
 
       <Route path="/register">
@@ -60,11 +62,13 @@ const App = () => {
       </Route>
 
       <Route path="/login">
-        <LoginPage setLoggedIn={setLoggedIn}></LoginPage>
+        <LoginPage setLoggedIn={setLoggedIn} setRole={setRole}></LoginPage>
       </Route>
     
     </Router>
   ); // return
+
+  // --------------------------------------------
 };
 
 // ==============================================

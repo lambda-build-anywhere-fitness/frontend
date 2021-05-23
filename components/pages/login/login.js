@@ -4,7 +4,7 @@ import LoginForm from '../../forms/login.js';
 // ==============================================
 // ==============================================
 
-const LoginPage = ({setLoggedIn}) => <LoginForm setLoggedIn={setLoggedIn}></LoginForm>;
+const LoginPage = ({setLoggedIn, setRole}) => <LoginForm setLoggedIn={setLoggedIn} setRole={setRole}></LoginForm>;
 
 // ==============================================
 // ==============================================
