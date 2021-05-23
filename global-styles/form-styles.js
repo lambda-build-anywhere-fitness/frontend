@@ -24,11 +24,13 @@ const buttonStyles = makeStyles(() => ({
 
 const inputStyles = makeStyles({
   root: {
-  '& *': { color: 'var(--text-primary)' },
-  '& .MuiInput-underline::before': {
-    borderBottom: '2px solid var(--translucent-primary)',
-  },
-  '&.MuiFormLabel-root': {color: 'var(--text-primary)'}
+    '& .MuiInput-underline::before': {
+      borderBottom: '2px solid var(--translucent-primary)',
+    },
+    '&.MuiFormLabel-root': {color: 'var(--text-primary)'},
+    // '& *': { color: 'var(--text-primary)' },
+    // '& *': { color: 'var(--text-primary)' },
+    '& .MuiFormLabel-root': { color: 'var(--text-primary)' },
   },
 });
 
