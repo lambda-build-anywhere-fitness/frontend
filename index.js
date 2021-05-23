@@ -77,6 +77,6 @@ const App = () => {
 render(
   <ThemeProvider theme={theme}>
     <App />
-  </ThemeProvider>,                          // arg-1: Invoked component
+  </ThemeProvider>,                 // arg-1: Invoked component
   document.querySelector('#root')   // arg-2: DOM node we want to attach to
 );

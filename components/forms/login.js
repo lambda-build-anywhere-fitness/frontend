@@ -50,8 +50,10 @@ const LoginForm = ({setLoggedIn, setRole}) => {
       "password":  form_values.password,
     };
 
-    const progress_bar = document.querySelector('#login__LinearProgress');
+    const register_link   = document.querySelector('#login__register-link');
+    const progress_bar = document.querySelector('#register__LinearProgress');
     progress_bar.classList.remove('hide-visibility');
+    register_link.classList.add('hide-visibility');
 
     // axios.post('https://anywhere-fitness-ptbw.herokuapp.com/api/auth/login', formData)
     //      .then(res => {
@@ -95,11 +97,18 @@ const LoginForm = ({setLoggedIn, setRole}) => {
           SUBMIT
         </Button>
         
-        <Grid spacing={1} container>
-          <Grid xs item>
-            <LinearProgress color="secondary" className="hide-visibility" id="login__LinearProgress"></LinearProgress>
+        <div style={{position: 'relative', height: '60px', width: '100%'}}>
+          <div id="login__register-link" style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly', height: '100%', width: '100%'}}>
+            <p>Need to sign up?</p>
+            <Link to="/login">Register</Link>
+          </div>
+          <Grid spacing={1} container style={{position: 'absolute', top: '50%'}}>
+            <Grid xs item>
+              <LinearProgress color="secondary" className="hide-visibility" id="register__LinearProgress"></LinearProgress>
+            </Grid>
           </Grid>
-        </Grid>
+        </div>
+
       </div>
     </form>
   ); // return 

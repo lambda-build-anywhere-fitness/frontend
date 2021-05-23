@@ -65,8 +65,8 @@ const RegisterForm = () => {
       "user-type": form_values.role,
     };
 
-    const login_link   = document.querySelector('#registration__login-link');
-    const progress_bar = document.querySelector('#registration__LinearProgress');
+    const login_link   = document.querySelector('#register__login-link');
+    const progress_bar = document.querySelector('#register__LinearProgress');
     progress_bar.classList.remove('hide-visibility');
     login_link.classList.add('hide-visibility');
 
@@ -121,16 +121,18 @@ const RegisterForm = () => {
         </Button>
 
         <div style={{position: 'relative', height: '60px', width: '100%'}}>
-          <div id="registration__login-link" style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly', height: '100%', width: '100%'}}>
+          <div id="register__login-link" style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly', height: '100%', width: '100%'}}>
             <p>Already have an account?</p>
             <Link to="/login">Log In</Link>
           </div>
           <Grid spacing={1} container style={{position: 'absolute', top: '50%'}}>
             <Grid xs item>
-              <LinearProgress color="secondary" className="hide-visibility" id="registration__LinearProgress"></LinearProgress>
+              <LinearProgress color="secondary" className="hide-visibility" id="register__LinearProgress"></LinearProgress>
             </Grid>
           </Grid>
         </div>
+      
+      
       </div>
     </form>
   ); // return
