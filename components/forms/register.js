@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import {useHistory} from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
@@ -8,40 +9,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Button from '@material-ui/core/Button';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import { makeStyles } from '@material-ui/core/styles';
-
-
-// ==============================================
-// ==============================================
-
-const buttonStyles = makeStyles(() => ({
-  root: {
-    padding: '0 30px',
-    height: '60px',
-    width: '100%',
-    borderRadius: '5px',
-    border: 'none',
-    color: 'var(--text-primary)',
-    background: 'var(--translucent-primary)',
-    transition: 'all 0.3s ease',
-    '&:hover': { 
-      boxShadow: 'var(--hover-shadow)',
-      transform: 'scaleX(1.01) scaleY(1.01)',
-      color: 'var(--text-secondary)'
-    }
-  },
-}));
-
-const inputStyles = makeStyles({
-  root: {
-  '& *': { color: 'var(--text-primary)' },
-  '& .MuiInput-underline::before': {
-    borderBottom: '2px solid var(--translucent-primary)',
-  },
-  '&.MuiFormLabel-root': {color: 'var(--text-primary)'}
-  },
-});
+import { Grid, LinearProgress } from "@material-ui/core";
+import {buttonStyles, inputStyles} from '../../global-styles/form-styles.js';
 
 // ==============================================
 // ==============================================
@@ -84,7 +53,7 @@ const RegistrationPage = () => {
 
   const history = useHistory();
   const onPost = (event) => {
-    console.log('onPost() in registration-form component');
+    console.log('onPost() in registration form component');
     event.preventDefault();
 
     const formData = {
@@ -96,7 +65,7 @@ const RegistrationPage = () => {
     };
 
     const progress_bar = document.querySelector('#registration__LinearProgress');
-    progress_bar.classList.toggle('hide-visibility');
+    progress_bar.classList.remove('hide-visibility');
 
     axios.post('https://anywhere-fitness-ptbw.herokuapp.com/api/auth/register', formData)
          .then(res => {
@@ -115,26 +84,28 @@ const RegistrationPage = () => {
   // --------------------------------------------
 
   return (
-    <form onSubmit={onPost} style={{display: 'grid', placeItems: 'center', height: '100vh', width: '100vw', background: 'linear-gradient(90deg, var(--gradient-starting), var(--gradient-ending))'}}>
-      <div style={{display: 'flex', flexDirection: 'column', justifyContent:'space-evenly', alignItems: 'center', height: '80%', width: '70vw', maxWidth: '500px', color: 'var(--text-primary)'}}>
-        <h3>CREATE YOUR APP ACCOUNT</h3>
+    <form onSubmit={onPost} style={{display: 'grid', placeItems: 'center', height: '100vh', width: '100vw', background: 'linear-gradient(90deg, var(--gradient-orange-starting), var(--gradient-orange-ending))'}}>
+      <div style={{display: 'flex', flexDirection: 'column', justifyContent:'space-evenly', alignItems: 'center', height: '85%', minHeight: '600px', maxHeight: '700px', width: '70vw', maxWidth: '500px', color: 'var(--text-primary)'}}>
+        <h3>CREATE YOUR ACCOUNT</h3>
         <FormControl style={{width: '100%'}}>
-          <TextField color="primary" name="name"     label="name"     onChange={handleTextChange1} className={inputClasses.root}/>
+          <TextField name="name"     label="name"     onChange={handleTextChange1} className={inputClasses.root}/>
           <TextField name="username" label="username" onChange={handleTextChange2} className={inputClasses.root}/>
           <TextField name="email"    label="email"    onChange={handleTextChange3} className={inputClasses.root}/>
           <TextField name="password" label="password" onChange={handleTextChange4} className={inputClasses.root}/>
         </FormControl>
 
-        <FormControl component="fieldset" style={{width: '100%'}}>
+        <FormControl component="fieldset">
           <FormLabel component="legend" className={inputClasses.root}>Role</FormLabel>
           <RadioGroup aria-label="role" name="role" value={radio_value} onChange={handleRadioChange}>
             <FormControlLabel value="client"     control={<Radio />} label="Client"     className={inputClasses.root}/>
-            <FormControlLabel value="instructor" control={<Radio />} label="Instructor" className={inputClasses.root}/>
 
-            {radio_value == 'instructor' ? 
-              <TextField name="auth-code" label="Auth Code" className={inputClasses.root} /> :
-              <TextField name="auth-code" label="Auth Code" className={inputClasses.root} style={{visibility: 'hidden'}}/>
-            }
+            <div style={{display: 'flex'}}>
+                <FormControlLabel value="instructor" control={<Radio />} label="Instructor" className={inputClasses.root}/>
+                {radio_value == 'instructor' ? 
+                  <TextField name="auth-code" label="Auth Code" className={inputClasses.root} /> :
+                  <TextField name="auth-code" label="Auth Code" className={inputClasses.root} style={{visibility: 'hidden'}}/>
+                }
+            </div>
             
           </RadioGroup>
         </FormControl>
@@ -143,10 +114,21 @@ const RegistrationPage = () => {
           SUBMIT
         </Button>
 
-        <LinearProgress className="hide-visibility" id="registration__LinearProgress"></LinearProgress>
+        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly', height: '60px', width: '100%'}}>
+          <p>Already have an account?</p>
+          <Link to="/login">Log In</Link>
+          <Grid spacing={1} container >
+            <Grid xs item>
+              <LinearProgress color="secondary" className="hide-visibility" id="registration__LinearProgress"></LinearProgress>
+            </Grid>
+          </Grid>
+        </div>
       </div>
     </form>
   );
 };
+
+// ==============================================
+// ==============================================
 
 export default RegistrationPage;

@@ -1,6 +1,7 @@
 import React, {useState, useEffect}       from 'react';
 import { render }                         from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 // ==============================================
 // ==============================================
@@ -41,10 +42,11 @@ const App = () => (
       <LoginPage></LoginPage>
     </Route>
 
-    <Route path="/home">
+    <Route path="/app">
       <h1>Home</h1>
     </Route>
 
+  
   </Router>
 );
 
