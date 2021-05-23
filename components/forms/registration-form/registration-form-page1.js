@@ -1,17 +1,14 @@
-import React, {useEffect, useState} from 'react';
-import { useHistory } from "react-router-dom";
-import * as yup from 'yup'
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import { useHistory } from "react-router-dom";
 import styled from 'styled-components';
-import axiosWithAuth from '../../helpers/axiosWithAuth'
+
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles } from '@material-ui/core/styles';
-import { PinDropSharp } from '@material-ui/icons';
 
 import gsap from 'gsap';
+import axios from 'axios';
 
 // ==============================================
 // ==============================================
@@ -86,11 +83,9 @@ const FormRow = styled.div`
   justify-content: space-evenly;
   text-align: center;
   /* border: dotted purple 5px; */
-
   .top, .bottom {
     text-align: center;
     /* border: solid white 2px; */
-
     &.form-input { position: relative;
       width: 100%;
       text-align: left;
@@ -113,40 +108,6 @@ const Translucent = styled.span`
 // ==============================================
 // ==============================================
 
-
-const init_form = { email: '', password: '' };
-   /* 
-    const history = useHistory()
-
-    const handleChange = e => {
-      setRegstierInfo({
-        ...registerInfo,
-        [e.target.name]: e.target.value
-      })
-    }
-
-    const handleSubmit = e => {
-      e.preventDefault()
-      axiosWithAuth().post()
-      .then(res => {
-        console.log('', res)
-        history.push()
-      })
-      .catch(err => {
-        console.log(err, '')
-      })
-    }
-
-
-*/
-
-export default function RegistrationFormPg1  ({setFormData}) {
-
-
-  // --------------------------------------------
-
-  const buttonClasses = buttonStyles();
-  const inputClasses = inputStyles();
 const RegistrationFormPg1 = ({setFormData}) => {
 
   // --------------------------------------------
@@ -155,68 +116,102 @@ const RegistrationFormPg1 = ({setFormData}) => {
   const input2Ref = useRef(null);
   const titleRef = useRef(null);
 
-  
-
   // --------------------------------------------
-  
+
   const buttonClasses = buttonStyles();
   const inputClasses = inputStyles();
 
   // --------------------------------------------
   const init_form = { email: '', password: '' };
   const [form, setForm] = useState(init_form);
-  const [buttonOff, setButtonOff] = useState(false)
-  const [error, setError] = useState({
-                                        email:'',
-                                        password:''})
-
-  const history = useHistory();
+  const [error, setError] = useState({email:'', password:''})
+  const [buttonOff, setButtonOff] = useState(true)
+  
   // --------------------------------------------
 
+const validate = (values) => {
+  let errors = {}
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
 
-   const formSchema = yup.object().shape({
-          email: yup.string().email(),
-          password:yup.string().required('Password Required').min(8, 'Password must be 8 to 30 charaters and incluse at least one number or special character, one upper case letter, and one lowercase letter')
-   })
+  if (!valid.email) {
+    errors.email = "Email address needed"
+  } else if (!regex.test(values.email)) {
+    errors.email = 'Invalid Email address'
+  }
 
-    const validateChange = (name, value) => {
-      yup.reach(formSchema, name)
-         .validate(value)
-         .then(valid => {
-           setError({
-             ...error, [name]: ''
-           })
-         .catch(err => {
-           setError({
-             ...error, [name]: err.error[0]})
-         })
-         })
+  if (!valid.password) {
+    errors.password = "Please enter password"
+  } else if (values.password.length < 8) {
+    errors.password = 'Password must be more than 8 characters'
+  } else if (values.password.length > 30) {
+    errors.password = 'Password must be less than 30 characters'
+  }
 
-    }
+  return errors;
+}
+
+useEffect (() => {
+  if (Object.keys(error).length === 0 && buttonOff) {
+    submit()
+  }
+}, [error])
 
 
+  // const formSchema = yup.object().shape({
+  //   email: yup.string()
+  //             .email('Invalid email address')
+  //             .required('Please enter your email address')
+  //             .trim()
+  //             .lowercase()
+  //             ,
+  //   password:yup.string()
+  //               .required('Password Required')
+  //               .min(8, 'Password must be 8 charaters or more ')
+  //               .max(30, 'Password must less than 30 charaters ')
+  //               .lowercase(1, 'Password must have one upper case letter')
+  //               .uppercase(1, 'Password must have one lowercase letter')
+  // })
+
+
+  // formSchema.isValid({email:'lambda@lambdaschool.com',
+  //                     password:'i<3Lambda'})
+  //           .then(function(valid){
+  //             valid;
+  //           })          
+          
+  //         formSchema.cast({email:'lambda@lambdaschool.com',
+  //         password:'i<3Lambda'
+
+  //         })
+
+        
+        
+  // --------------------------------------------
 
   const onChange = (event) => {
     console.log('onChange() -- form: ', form);
     const { name, value } = event.target;
+    // validateChange(name, value)
     setForm( {...form, [name]: value} );
   };
   
+  // useEffect(() => {
+  //   formSchema.isValid(form).then(valid => {
+  //     setButtonOff(!valid)
+  //   })
+  // }, [form])
   // --------------------------------------------
 
 
-// =======
-  
-
-  const onPost = (event) => {
-    console.log('onPost() in registration-form component');
-    event.preventDefault();
-   
 
   const history = useHistory();
   const onPost = (event) => {
     console.log('onPost() in registration-form component');
     event.preventDefault();
+    axios.post('https://anywhere-fitness-ptbw.herokuapp.com/api/auth/register', form)
+         .then(res => history.push('/register'))
+         .catch(err => console.log(err))
+         setForm(init_form)
 
     const formData = {
       "email": `${form.email}`,
@@ -225,33 +220,6 @@ const RegistrationFormPg1 = ({setFormData}) => {
     setFormData(formData);
 
     const animate_page_transition_during_post_request = (() => {
-      const progress_bar = document.querySelector('#registrationFormPg1__LinearProgress');
-      progress_bar.classList.toggle('hide-visibility');
-
-      const duration = 2.5;
-      // gsap.to(inputRef.current, {opacity: 0, duration});
-      setTimeout(() => history.push("/registration-page-2"), duration * 1e3);
-    })();
-
-    axiosWithAuth()
-          .post('/api/auth/register', form) 
-          .then( res => {
-            console.log('info', res.data, form)
-            history.push('/login` ')
-          })
-          .catch(err => {
-            console.log('Registration failed', err)
-          })
-
- 
-  };
-
-  // --------------------------------------------
-useEffect(()=>{
-  formSchema.isValid(form).then(valid => {
-    setButtonOff(!valid)
-  })
-},[form])
       // const progress_bar = document.querySelector('#registrationFormPg1__LinearProgress');
       // progress_bar.classList.toggle('hide-visibility');
 
@@ -274,7 +242,7 @@ useEffect(()=>{
 
   return (
     <FormContainer>
-      <Form onSubmit={onPost}>
+      <Form onSubmit={onPost} noValidate>
         <FormRow>
           <div className="top">
             <h3>CREATE YOUR APP ACCOUNT</h3>
@@ -288,36 +256,35 @@ useEffect(()=>{
         </FormRow>
         <FormRow>
           <div className="top form-input">
-            <TextField id="standard-basic" label="Email"
-              name="email" 
+            <TextField id="standard-basic" label="email"
+              name="email"  
+              type='email'  
+              id='email'                  
               value={form.email} 
               onChange={onChange}
-              className={inputClasses.root} 
-              required
               className={inputClasses.root}
               ref={input1Ref}
+
             />
-            
           </div>
           <div className="bottom form-input">
-            <TextField id="standard-basic" label="Password"
-              name="password" 
+            <TextField id="standard-basic" label="password"
+              name="password"
               type='password'
+              id='password'
               value={form.password} 
               onChange={onChange}
               className={inputClasses.root}
-              required
               ref={input2Ref}
             />
           </div>
         </FormRow>
         <FormRow>
-        {error.email.length < 0 ? <Error>{error.email}</Error> : null }
-        {error.password.length < 0 ? <Error>{error.password}</Error> : null }
+         {error.email && <span className='error'>{error.email}</span>}
+         {error.password && <span className='error'>{error.password}</span>}
         </FormRow>
         <FormRow>
           
-          <Button disable={buttonOff} type="submit" className={buttonClasses.root}>
           <Button type="submit" className={buttonClasses.root}>
             NEXT
           </Button>
@@ -327,10 +294,6 @@ useEffect(()=>{
         </FormRow>
       </Form>
     </FormContainer>
-<<<<<<< HEAD:components/forms/registration-form/registration-form-page1.js
-  )} 
-=======
   );
 }
 export default RegistrationFormPg1;
->>>>>>> 868aa4a0ac4913ed8dd48af5aac1696f9ce0ff95:components/forms/registration-form/registration-form.js
