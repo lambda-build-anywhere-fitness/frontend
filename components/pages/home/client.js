@@ -1,12 +1,15 @@
 import React from 'react';
-import RegisterForm from '../forms/register.js';
 
 // ==============================================
 // ==============================================
 
-const RegisterPage = () => <RegisterForm></RegisterForm>;
+const ClientHomePage = () => {
+  return (
+    <h1>Client Home Page</h1>
+  );
+};
 
 // ==============================================
 // ==============================================
 
-export default RegisterPage;
+export default ClientHomePage;

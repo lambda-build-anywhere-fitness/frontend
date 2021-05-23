@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import {useHistory} from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
@@ -13,7 +13,7 @@ import {buttonStyles, inputStyles} from '../../global-styles/form-styles.js';
 // ==============================================
 // ==============================================
 
-const LoginForm = () => {
+const LoginForm = ({setLoggedIn}) => {
 
   // --------------------------------------------
 
@@ -53,13 +53,18 @@ const LoginForm = () => {
     const progress_bar = document.querySelector('#login__LinearProgress');
     progress_bar.classList.remove('hide-visibility');
 
-    axios.post('https://anywhere-fitness-ptbw.herokuapp.com/api/auth/login', formData)
-         .then(res => {
-           console.log('response: ', res);
-           history.push('/app')
-          })
-         .catch(err => console.log(err));
+    // axios.post('https://anywhere-fitness-ptbw.herokuapp.com/api/auth/login', formData)
+    //      .then(res => {
+    //        console.log('response: ', res);
+    //        setLoggedIn(true);
+    //        history.push('/')
+    //       })
+    //      .catch(err => console.log(err));
     setFormValues(init_form);
+
+    // Do this in 'fulfilled' .then() callback for above Promise resulting from POST request to API-URL/api/auth/login:
+    setLoggedIn(true);
+    history.push('/');
   };
 
   // --------------------------------------------

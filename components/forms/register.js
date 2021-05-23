@@ -10,6 +10,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Button from '@material-ui/core/Button';
 import { Grid, LinearProgress } from "@material-ui/core";
+// import {buttonStyles, inputStyles} from '../../global-styles/form-styles.js';
 import {buttonStyles, inputStyles} from '../../global-styles/form-styles.js';
 
 // ==============================================
@@ -69,13 +70,16 @@ const RegisterForm = () => {
     progress_bar.classList.remove('hide-visibility');
     login_link.classList.add('hide-visibility');
 
-    axios.post('https://anywhere-fitness-ptbw.herokuapp.com/api/auth/register', formData)
-         .then(res => {
-           console.log('response: ', res);
-           history.push('/login')
-          })
-         .catch(err => console.log(err));
+    // axios.post('https://anywhere-fitness-ptbw.herokuapp.com/api/auth/register', formData)
+    //      .then(res => {
+    //        console.log('response: ', res);
+    //        history.push('/login')
+    //       })
+    //      .catch(err => console.log(err));
     setFormValues(init_form);
+
+    // Do this in 'fulfilled' .then() callback for above Promise resulting from POST request to API-URL/api/auth/register:
+    history.push('/login')
   };
 
   // --------------------------------------------

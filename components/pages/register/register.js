@@ -1,12 +1,12 @@
 import React from 'react';
-import LoginForm from '../forms/login.js';
+import RegisterForm from '../../forms/register';
 
 // ==============================================
 // ==============================================
 
-const LoginPage = () => <LoginForm></LoginForm>;
+const RegisterPage = () => (<RegisterForm></RegisterForm>);
 
 // ==============================================
 // ==============================================
 
-export default LoginPage;
+export default RegisterPage;
