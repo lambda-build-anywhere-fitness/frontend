@@ -36,8 +36,8 @@ const App = () => {
 
   // --------------------------------------------
 
-  const [logged_in, setLoggedIn] = useState(false);
-  const [role, setRole] = useState(null);
+  const [logged_in, setLoggedIn] = useState(true);
+  const [role, setRole] = useState('client');
 
   // --------------------------------------------
 
@@ -45,7 +45,6 @@ const App = () => {
     <Router>
     
       <Route exact path="/">
-        {/* {logged_in ? <ClientHomePage /> : <PublicHomePage />} */}
         <PublicHomePage />
       </Route>
 

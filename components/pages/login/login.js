@@ -59,8 +59,8 @@ const LoginPage = ({setLoggedIn, setRole}) => {
     //      .then(res => {
     //        console.log('response: ', res);
     //        setLoggedIn(true);
-    //        history.push('/')
-    //       })
+    //        history.push('/');
+    //      })
     //      .catch(err => console.log(err));
     setFormValues(init_form);
 
