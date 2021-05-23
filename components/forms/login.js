@@ -13,7 +13,7 @@ import {buttonStyles, inputStyles} from '../../global-styles/form-styles.js';
 // ==============================================
 // ==============================================
 
-const LoginPage = () => {
+const LoginForm = () => {
 
   // --------------------------------------------
 
@@ -95,4 +95,4 @@ const LoginPage = () => {
 // ==============================================
 // ==============================================
 
-export default LoginPage;
+export default LoginForm;

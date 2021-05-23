@@ -15,7 +15,7 @@ import {buttonStyles, inputStyles} from '../../global-styles/form-styles.js';
 // ==============================================
 // ==============================================
 
-const RegistrationPage = () => {
+const RegisterForm = () => {
 
   // --------------------------------------------
 
@@ -123,7 +123,6 @@ const RegistrationPage = () => {
           </div>
           <Grid spacing={1} container style={{position: 'absolute', top: '50%'}}>
             <Grid xs item>
-              {/* <LinearProgress color="secondary" id="registration__LinearProgress"></LinearProgress> */}
               <LinearProgress color="secondary" className="hide-visibility" id="registration__LinearProgress"></LinearProgress>
             </Grid>
           </Grid>
@@ -136,4 +135,4 @@ const RegistrationPage = () => {
 // ==============================================
 // ==============================================
 
-export default RegistrationPage;
+export default RegisterForm;

@@ -23,30 +23,42 @@ const theme = createMuiTheme({
 // ==============================================
 // ==============================================
 
-import RegistrationPage from './components/forms/register.js';
-import LoginPage        from './components/forms/login.js';
+import RegisterPage from './components/pages/register.js';
+import LoginPage    from './components/pages/login.js';
+
 
 // ==============================================
 // ==============================================
 
-const App = () => (
-  <Router>
-  
-    <Route exact path="/">
-      <RegistrationPage></RegistrationPage>
-    </Route>
+const App = () => {
 
-    <Route path="/login">
-      <LoginPage></LoginPage>
-    </Route>
+  const [logged_in, setLoggedIn] = useState(false);
 
-    <Route path="/app">
-      <h1>Home</h1>
-    </Route>
+  // --------------------------------------------
 
-  
-  </Router>
-);
+  return (
+    <Router>
+    
+      <Route exact path="/">
+        {/* {logged_in ? <Redirect to="/register" /> : <PublicHomePage />} */}
+        <RegisterPage></RegisterPage>
+      </Route>
+
+      <Route path="/register">
+        <RegisterPage></RegisterPage>
+      </Route>
+
+      <Route path="/login">
+        <LoginPage></LoginPage>
+      </Route>
+
+      <Route path="/app">
+        <h1>Home</h1>
+      </Route>
+    
+    </Router>
+  ); // return
+};
 
 // ==============================================
 // ==============================================
