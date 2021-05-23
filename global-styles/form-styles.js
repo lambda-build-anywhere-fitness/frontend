@@ -27,9 +27,6 @@ const inputStyles = makeStyles({
     '& .MuiInput-underline::before': {
       borderBottom: '2px solid var(--translucent-primary)',
     },
-    '&.MuiFormLabel-root': {color: 'var(--text-primary)'},
-    // '& *': { color: 'var(--text-primary)' },
-    // '& *': { color: 'var(--text-primary)' },
     '& .MuiFormLabel-root': { color: 'var(--text-primary)' },
   },
 });
