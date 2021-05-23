@@ -72,8 +72,8 @@ const LoginPage = () => {
   return (
     <form onSubmit={onPost} style={{display: 'grid', placeItems: 'center', height: '100vh', width: '100vw', background: 'linear-gradient(90deg, var(--gradient-green-starting), var(--gradient-green-ending))'}}>
       <div style={{display: 'flex', flexDirection: 'column', justifyContent:'space-evenly', alignItems: 'center', height: '80%', width: '70vw', maxWidth: '500px', color: 'var(--text-primary)'}}>
-        <h3>CREATE YOUR APP ACCOUNT</h3>
-        <FormControl style={{width: '100%'}}>
+        <h3>LOG IN TO YOUR ACCOUNT</h3>
+        <FormControl style={{display: 'flex', flexDriction: 'column', justifyContent: 'space-evenly', minHeight: '170px', width: '100%'}}>
           <TextField name="username" label="username" onChange={handleTextChange1} className={inputClasses.root}/>
           <TextField name="password" label="password" onChange={handleTextChange2} className={inputClasses.root}/>
         </FormControl>
