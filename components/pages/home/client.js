@@ -59,13 +59,15 @@ const ClientHomePage = () => {
   // --------------------------------------------
 
   const [input_val_1, setInputVal1] = useState(0);  // [input-field: Integer]    Class ID
-  const [input_val_2, setInputVal2] = useState(0);  // [slider:      Integer]    Class Intensity: TODO: Change to dropdown ("low", "medium", or "high")
+  const [input_val_2, setInputVal2] = useState(0);  // [slider:      Integer]    Class Duration
   const [input_val_3, setInputVal3] = useState(''); // [dropdown:    String]     Class Type
-  const [input_val_4, setInputVal4] = useState(''); // [dropdown:    String]     Location
+  const [input_val_4, setInputVal4] = useState(''); // [dropdown:    String]     Class Location
+  const [input_val_5, setInputVal5] = useState(''); // [dropdown:    String]     Class Intensity
   const handleInputVal1 = (e)         => { console.log('input_val_1: ', input_val_1); setInputVal1(e.target.value); }
   const handleInputVal2 = (e, newVal) => { console.log('input_val_2: ', input_val_2); setInputVal2(newVal);         }
   const handleInputVal3 = (e)         => { console.log('input_val_3: ', input_val_3); setInputVal3(e.target.value); }
   const handleInputVal4 = (e)         => { console.log('input_val_4: ', input_val_4); setInputVal4(e.target.value); }
+  const handleInputVal5 = (e)         => { console.log('input_val_5: ', input_val_5); setInputVal5(e.target.value); }
 
   // --------------------------------------------
 
@@ -152,7 +154,9 @@ const ClientHomePage = () => {
             axios.get(`https://anywhere-fitness-ptbw.herokuapp.com${endpoint}`)
                 .then(res => console.log('response: ', res))
                 .catch(err => console.log(err));
-          }}>
+            }}
+            disabled={initially_disable(input_val_4)}
+          >
             Get Classes by Location
           </Button>
         </div>
@@ -160,6 +164,41 @@ const ClientHomePage = () => {
         {/* - - - - - - - - - - - - - - - - - - */}
 
         <div className="card">
+
+          <FormControl className={classes.formControl}>
+            <InputLabel id="client-classIntensity-dropdown">Intensity</InputLabel>
+            <Select
+              labelId="client-classIntensity-dropdown"
+              value={input_val_5}
+              onChange={handleInputVal5}
+            >
+              <MenuItem value={'low'}>Low</MenuItem>
+              <MenuItem value={'medium'}>Medium</MenuItem>
+              <MenuItem value={'high'}>High</MenuItem>
+            </Select>
+          </FormControl>
+
+          <Button variant="outlined" color="secondary" style={{width: '100%'}} onClick={() => {
+
+            const intensity = input_val_5; // dropdown
+
+            // -Orlando TODO (4/6): Drop API-call here
+            // get classes by intensity GET     /api/auth/users/classes/intensity  intensity        N/A                Gets all the class in that intensity. "low", "medium", or "high"
+            const endpoint = `/api/auth/users/classes/${intensity}`;
+            axios.get(`https://anywhere-fitness-ptbw.herokuapp.com${endpoint}`)
+                .then(res => console.log('response: ', res))
+                .catch(err => console.log(err));
+            }}
+            disabled={initially_disable(input_val_5)}
+          >
+            Get Classes by Intensity
+          </Button>
+        </div>
+
+        {/* - - - - - - - - - - - - - - - - - - */}
+
+        <div className="card">
+
           <Grid container spacing={2}>
             <Grid item xs>
               <Slider
@@ -171,30 +210,10 @@ const ClientHomePage = () => {
             <Grid item>{input_val_2}</Grid>
           </Grid>
 
-          <Button variant="outlined" color="secondary" style={{width: '100%'}} onClick={() => {
 
-            const intensity = input_val_2; // slider
-
-            // -Orlando TODO (4/6): Drop API-call here
-            // get classes by intensity GET     /api/auth/users/classes/intensity  intensity        N/A                Gets all the class in that intensity. "low", "medium", or "high"
-            const endpoint = `/api/auth/users/classes/${intensity}`;
-            axios.get(`https://anywhere-fitness-ptbw.herokuapp.com${endpoint}`)
-                .then(res => console.log('response: ', res))
-                .catch(err => console.log(err));
-            }}
-            disabled={initially_disable(input_val_2)}
-          >
-            Get Classes by Intensity
-          </Button>
-        </div>
-
-        {/* - - - - - - - - - - - - - - - - - - */}
-
-        <div className="card">
           <Button variant="outlined" color="secondary" onClick={() => {
 
-            // -Josh TODO (4/5): Get <duration>
-            const duration = 0; // slider
+            const duration = input_val_2; // slider
 
             // -Orlando TODO (5/6): Drop API-call here
             // get classes by duration  GET     /api/auth/users/classes/duration   duration         N/A                Gets all the class of that duration. Has to be double.
@@ -202,7 +221,9 @@ const ClientHomePage = () => {
             axios.get(`https://anywhere-fitness-ptbw.herokuapp.com${endpoint}`)
                 .then(res => console.log('response: ', res))
                 .catch(err => console.log(err));
-          }}>
+            }}
+            disabled={initially_disable(input_val_2)}
+          >
             Get Classes by Duration
           </Button>
         </div>
