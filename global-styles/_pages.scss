@@ -10,13 +10,23 @@
     display: grid;
     place-items: center;
 
-    > div {
+    > .container {
       height: 80%;
       width: 80%;
       display: flex;
       flex-direction: column;
       justify-content: space-evenly;
+
+      .card {
+        border: dashed hotpink 4px;
+        background: lightgray;
+        border: solid gray 1px;
+        border-radius: 5px;
+        padding: 5%;
+      }
     }
+
+
   }
   &-instructor {}
 }

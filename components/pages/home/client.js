@@ -1,10 +1,17 @@
 import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Slider from '@material-ui/core/Slider';
+
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 
@@ -20,7 +27,6 @@ import clsx from 'clsx';
 // get classes by Location  GET     /api/auth/users/classes/location   location         N/A                Gets all the class in that location
 // get classes by intensity GET     /api/auth/users/classes/intensity  intensity        N/A                Gets all the class in that intensity. "low", "medium", or "high"
 // get classes by duration  GET     /api/auth/users/classes/duration   duration         N/A                Gets all the class of that duration. Has to be double.
-
 // get classes by type      GET     /api/auth/users/classes/type       type             N/A                Gets all the class of that type.
 
 // ==============================================
@@ -52,10 +58,12 @@ const ClientHomePage = () => {
 
   // --------------------------------------------
 
-  const [input_val_1, setInputVal1] = useState(0);
-  const [input_val_2, setInputVal2] = useState(0);
+  const [input_val_1, setInputVal1] = useState(0);  // [input-field: Integer]    Class ID
+  const [input_val_2, setInputVal2] = useState(0);  // [slider:      Integer]     Class Intensity: TODO: Change to dropdown ("low", "medium", or "high")
+  const [input_val_3, setInputVal3] = useState(''); // [dropdown:    String]     Class Type
   const handleInputVal1 = (e)         => { console.log('input_val_1: ', input_val_1); setInputVal1(e.target.value); }
   const handleInputVal2 = (e, newVal) => { console.log('input_val_2: ', input_val_2); setInputVal2(newVal);         }
+  const handleInputVal3 = (e)         => { console.log('input_val_3: ', input_val_3); setInputVal3(e.target.value); }
 
   // --------------------------------------------
 
@@ -65,12 +73,12 @@ const ClientHomePage = () => {
 
   return (
     <div className="homepage homepage-client">
-      <div>
+      <div className="container">
         <h1>Client Home Page</h1>
 
         {/* - - - - - - - - - - - - - - - - - - */}
-
-        <Button variant="outlined" color="secondary" onClick={() => {
+        <div className="card">
+          <Button variant="outlined" color="secondary" style={{width: '100%'}} onClick={() => {
 
           // -Orlando TODO (1/6): Drop API-call here
           // --get all classes          GET     /api/auth/users/classes            N/A              N/A                Fetches all the classes from the database
@@ -81,57 +89,59 @@ const ClientHomePage = () => {
         }}>
           Get All Classes
         </Button>
+        </div>
+        {/* - - - - - - - - - - - - - - - - - - */}
+
+        <div className="card">
+          <TextField
+            label="Enter Class ID Number"
+            id="standard-start-adornment"
+            className={clsx(classes.margin, classes.textField)}
+            InputProps={{
+              startAdornment: <InputAdornment position="start">ID#</InputAdornment>,
+            }}
+            onChange={handleInputVal1}
+          />
+
+          <Button variant="outlined" color="secondary" style={{width: '100%'}} onClick={() => {
+
+            const id = input_val_1; // input field
+
+            // -Orlando TODO (2/6): Drop API-call here
+            // get classes by Id        GET     /api/auth/users/classes/:id        id               N/A                Fetches the class with given Id.
+            const endpoint = `/api/auth/users/classes/:${id}`;
+            axios.get(`https://anywhere-fitness-ptbw.herokuapp.com${endpoint}`)
+                .then(res => console.log('response: ', res))
+                .catch(err => console.log(err));
+            }}
+            disabled={initially_disable(input_val_1)}
+          >
+            Get Classes by ID
+          </Button>
+        </div>
 
         {/* - - - - - - - - - - - - - - - - - - */}
 
+        <div className="card">
+          <Button variant="outlined" color="secondary" onClick={() => {
 
-        <TextField
-          label="Enter Class ID Number"
-          id="standard-start-adornment"
-          className={clsx(classes.margin, classes.textField)}
-          InputProps={{
-            startAdornment: <InputAdornment position="start">ID#</InputAdornment>,
-          }}
-          onChange={handleInputVal1}
-        />
+            // -Josh TODO (2/5): Get <location>
+            const location = 'texas'; // dropdown
 
-
-        <Button variant="outlined" color="secondary" onClick={() => {
-
-          const id = input_val_1; // input field
-
-          // -Orlando TODO (2/6): Drop API-call here
-          // get classes by Id        GET     /api/auth/users/classes/:id        id               N/A                Fetches the class with given Id.
-          const endpoint = `/api/auth/users/classes/:${id}`;
-          axios.get(`https://anywhere-fitness-ptbw.herokuapp.com${endpoint}`)
-               .then(res => console.log('response: ', res))
-               .catch(err => console.log(err));
-          }}
-          disabled={initially_disable(input_val_1)}
-        >
-          Get Classes by ID
-        </Button>
-
+            // -Orlando TODO (3/6): Drop API-call here
+            // get classes by Location  GET     /api/auth/users/classes/location   location         N/A                Gets all the class in that location
+            const endpoint = `/api/auth/users/classes/${location}`;
+            axios.get(`https://anywhere-fitness-ptbw.herokuapp.com${endpoint}`)
+                .then(res => console.log('response: ', res))
+                .catch(err => console.log(err));
+          }}>
+            Get Classes by Location
+          </Button>
+        </div>
+        
         {/* - - - - - - - - - - - - - - - - - - */}
 
-        <Button variant="outlined" color="secondary" onClick={() => {
-
-          // -Josh TODO (2/5): Get <location>
-          const location = 'texas'; // dropdown
-
-          // -Orlando TODO (3/6): Drop API-call here
-          // get classes by Location  GET     /api/auth/users/classes/location   location         N/A                Gets all the class in that location
-          const endpoint = `/api/auth/users/classes/${location}`;
-          axios.get(`https://anywhere-fitness-ptbw.herokuapp.com${endpoint}`)
-               .then(res => console.log('response: ', res))
-               .catch(err => console.log(err));
-        }}>
-          Get Classes by Location
-        </Button>
-
-        {/* - - - - - - - - - - - - - - - - - - */}
-
-        <div style={{border: 'solid black 1px'}}>
+        <div className="card">
           <Grid container spacing={2}>
             <Grid item xs>
               <Slider
@@ -162,39 +172,60 @@ const ClientHomePage = () => {
 
         {/* - - - - - - - - - - - - - - - - - - */}
 
-        <Button variant="outlined" color="secondary" onClick={() => {
+        <div className="card">
+          <Button variant="outlined" color="secondary" onClick={() => {
 
-          // -Josh TODO (4/5): Get <duration>
-          const duration = 0; // slider
+            // -Josh TODO (4/5): Get <duration>
+            const duration = 0; // slider
 
-          // -Orlando TODO (5/6): Drop API-call here
-          // get classes by duration  GET     /api/auth/users/classes/duration   duration         N/A                Gets all the class of that duration. Has to be double.
-          const endpoint = `/api/auth/users/classes/${duration}`;
-          axios.get(`https://anywhere-fitness-ptbw.herokuapp.com${endpoint}`)
-               .then(res => console.log('response: ', res))
-               .catch(err => console.log(err));
-        }}>
-          Get Classes by Duration
-        </Button>
-
+            // -Orlando TODO (5/6): Drop API-call here
+            // get classes by duration  GET     /api/auth/users/classes/duration   duration         N/A                Gets all the class of that duration. Has to be double.
+            const endpoint = `/api/auth/users/classes/${duration}`;
+            axios.get(`https://anywhere-fitness-ptbw.herokuapp.com${endpoint}`)
+                .then(res => console.log('response: ', res))
+                .catch(err => console.log(err));
+          }}>
+            Get Classes by Duration
+          </Button>
+        </div>
+        
         {/* - - - - - - - - - - - - - - - - - - */}
 
-        <Button variant="outlined" color="secondary" onClick={() => {
+        <div className="card">
+  
+          <FormControl className={classes.formControl}>
+            <InputLabel id="client-classType-dropdown">Type</InputLabel>
+            <Select
+              labelId="client-classType-dropdown"
+              value={input_val_3}
+              onChange={handleInputVal3}
+            >
+              <MenuItem value={'aerobic'}>Aerobic</MenuItem>
+              <MenuItem value={'weights'}>Weight Training</MenuItem>
+              <MenuItem value={'yoga'}>Yoga</MenuItem>
+            </Select>
+          </FormControl>
 
-          // -Josh TODO (5/5): Get <duration>
-          const type = 'aerobic'; // Checkboxes
+          <Button variant="outlined" color="secondary" onClick={() => {
 
-          // -Orlando TODO (6/6): Drop API-call here
-          // get classes by type      GET     /api/auth/users/classes/type       type             N/A                Gets all the class of that type.
-          const endpoint = `/api/auth/users/classes/${type}`;
-          axios.get(`https://anywhere-fitness-ptbw.herokuapp.com${endpoint}`)
-               .then(res => console.log('response: ', res))
-               .catch(err => console.log(err));          
-        }}>
-          Get Classes by Type
-        </Button>
+            // -Josh TODO (5/5): Get <duration>
+            const type = input_val_3; // Checkboxes
 
+            // -Orlando TODO (6/6): Drop API-call here
+            // get classes by type      GET     /api/auth/users/classes/type       type             N/A                Gets all the class of that type.
+            const endpoint = `/api/auth/users/classes/${type}`;
+            axios.get(`https://anywhere-fitness-ptbw.herokuapp.com${endpoint}`)
+                .then(res => console.log('response: ', res))
+                .catch(err => console.log(err));          
+            }}
+            disabled={initially_disable(input_val_3)}
+          >
+            Get Classes by Type
+          </Button>
+        </div>
+        
         {/* - - - - - - - - - - - - - - - - - - */}
+      
       </div>
     </div>
   ); // return
