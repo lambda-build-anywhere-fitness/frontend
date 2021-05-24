@@ -59,11 +59,13 @@ const ClientHomePage = () => {
   // --------------------------------------------
 
   const [input_val_1, setInputVal1] = useState(0);  // [input-field: Integer]    Class ID
-  const [input_val_2, setInputVal2] = useState(0);  // [slider:      Integer]     Class Intensity: TODO: Change to dropdown ("low", "medium", or "high")
+  const [input_val_2, setInputVal2] = useState(0);  // [slider:      Integer]    Class Intensity: TODO: Change to dropdown ("low", "medium", or "high")
   const [input_val_3, setInputVal3] = useState(''); // [dropdown:    String]     Class Type
+  const [input_val_4, setInputVal4] = useState(''); // [dropdown:    String]     Location
   const handleInputVal1 = (e)         => { console.log('input_val_1: ', input_val_1); setInputVal1(e.target.value); }
   const handleInputVal2 = (e, newVal) => { console.log('input_val_2: ', input_val_2); setInputVal2(newVal);         }
   const handleInputVal3 = (e)         => { console.log('input_val_3: ', input_val_3); setInputVal3(e.target.value); }
+  const handleInputVal4 = (e)         => { console.log('input_val_4: ', input_val_4); setInputVal4(e.target.value); }
 
   // --------------------------------------------
 
@@ -123,10 +125,26 @@ const ClientHomePage = () => {
         {/* - - - - - - - - - - - - - - - - - - */}
 
         <div className="card">
+
+          <FormControl className={classes.formControl}>
+            <InputLabel id="client-classType-dropdown">Location</InputLabel>
+            <Select
+              labelId="client-classType-dropdown"
+              value={input_val_4}
+              onChange={handleInputVal4}
+            >
+              <MenuItem value={'nebraska'}>Nebraska</MenuItem>
+              <MenuItem value={'texas'}>Texas</MenuItem>
+              <MenuItem value={'oklahoma'}>Oklahoma</MenuItem>
+              <MenuItem value={'south-dakota'}>South Dakota</MenuItem>
+              <MenuItem value={'north-dakota'}>North Dakota</MenuItem>
+              <MenuItem value={'kansas'}>Kansas</MenuItem>
+            </Select>
+          </FormControl>
+
           <Button variant="outlined" color="secondary" onClick={() => {
 
-            // -Josh TODO (2/5): Get <location>
-            const location = 'texas'; // dropdown
+            const location = input_val_4; // dropdown
 
             // -Orlando TODO (3/6): Drop API-call here
             // get classes by Location  GET     /api/auth/users/classes/location   location         N/A                Gets all the class in that location
