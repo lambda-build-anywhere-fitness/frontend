@@ -59,6 +59,10 @@ const ClientHomePage = () => {
 
   // --------------------------------------------
 
+  const initially_disable = (input_val) => input_val ? false : true;
+
+  // --------------------------------------------
+
   return (
     <div className="homepage homepage-client">
       <div>
@@ -102,8 +106,8 @@ const ClientHomePage = () => {
           axios.get(`https://anywhere-fitness-ptbw.herokuapp.com${endpoint}`)
                .then(res => console.log('response: ', res))
                .catch(err => console.log(err));
-        }}
-        disabled={input_val_1 ? false : true}
+          }}
+          disabled={initially_disable(input_val_1)}
         >
           Get Classes by ID
         </Button>
@@ -149,7 +153,9 @@ const ClientHomePage = () => {
             axios.get(`https://anywhere-fitness-ptbw.herokuapp.com${endpoint}`)
                 .then(res => console.log('response: ', res))
                 .catch(err => console.log(err));
-          }}>
+            }}
+            disabled={initially_disable(input_val_2)}
+          >
             Get Classes by Intensity
           </Button>
         </div>
