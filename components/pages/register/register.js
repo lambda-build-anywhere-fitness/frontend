@@ -100,7 +100,7 @@ const RegisterPage = () => {
         </FormControl>
 
         <FormControl component="fieldset">
-          <FormLabel component="legend" className={inputClasses.root}>Role</FormLabel>
+          {/* <FormLabel component="legend" className={inputClasses.root}>Role</FormLabel> */}
           <RadioGroup aria-label="role" name="role" value={radio_value} onChange={handleRadioChange}>
             <FormControlLabel value="client"     control={<Radio />} label="Client" className={inputClasses.root}/>
 

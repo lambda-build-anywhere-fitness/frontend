@@ -28,6 +28,8 @@ const inputStyles = makeStyles({
       borderBottom: '2px solid var(--translucent-primary)',
     },
     '& .MuiFormLabel-root': { color: 'var(--text-primary)' },
+    '& .MuiRadio-colorSecondary.Mui-checked': { color: 'var(--text-primary)' },
+    '& .MuiRadio-colorSecondary': { color: 'var(--text-primary)' },
   },
 });
 
