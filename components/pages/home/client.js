@@ -1,8 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
-import '../../../global-styles/styles.scss';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import {buttonStyles, inputStyles} from '../../../global-styles/form-styles.js';
+import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
 
 // ==============================================
 // ==============================================
@@ -26,11 +29,35 @@ const ClientHomePage = () => {
 
   // --------------------------------------------
 
-  const buttonClasses = buttonStyles();
-  const inputClasses = inputStyles();
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      display: 'flex',
+      flexWrap: 'wrap',
+    },
+    margin: {
+      margin: theme.spacing(1),
+    },
+    withoutLabel: {
+      marginTop: theme.spacing(3),
+    },
+    textField: {
+      width: '25ch',
+    },
+  }));
 
   // --------------------------------------------
-  
+
+  const buttonClasses = buttonStyles();
+  const inputClasses = inputStyles();
+  const classes = useStyles();
+
+  // --------------------------------------------
+
+  const [input_val_1, setInputVal1] = useState(NaN);
+  const handleInputVal1 = e => setInputVal1(Number(e.target.value));
+
+  // --------------------------------------------
+
   return (
     <div className="homepage homepage-client">
       <div>
@@ -52,10 +79,21 @@ const ClientHomePage = () => {
 
         {/* - - - - - - - - - - - - - - - - - - */}
 
-        <Button variant="outlined" color="secondary" onClick={() => {
 
+        <TextField
+          label="Enter Class ID Number"
+          id="standard-start-adornment"
+          className={clsx(classes.margin, classes.textField)}
+          InputProps={{
+            startAdornment: <InputAdornment position="start">ID#</InputAdornment>,
+          }}
+          onChange={handleInputVal1}
+        />
+
+
+        <Button variant="outlined" color="secondary" onClick={() => {
           // -Josh TODO (1/5): Get <id> from text field
-          const id = 0; // input field
+          const id = input_val_1; // input field
 
           // -Orlando TODO (2/6): Drop API-call here
           // get classes by Id        GET     /api/auth/users/classes/:id        id               N/A                Fetches the class with given Id.
@@ -63,7 +101,9 @@ const ClientHomePage = () => {
           axios.get(`https://anywhere-fitness-ptbw.herokuapp.com${endpoint}`)
                .then(res => console.log('response: ', res))
                .catch(err => console.log(err));
-        }}>
+        }}
+        disabled={input_val_1 ? false : true}
+        >
           Get Classes by ID
         </Button>
 
