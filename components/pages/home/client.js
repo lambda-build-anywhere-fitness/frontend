@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
+import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
 import InputAdornment from '@material-ui/core/InputAdornment';
-import {buttonStyles, inputStyles} from '../../../global-styles/form-styles.js';
+import Slider from '@material-ui/core/Slider';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 
@@ -47,14 +48,14 @@ const ClientHomePage = () => {
 
   // --------------------------------------------
 
-  const buttonClasses = buttonStyles();
-  const inputClasses = inputStyles();
   const classes = useStyles();
 
   // --------------------------------------------
 
-  const [input_val_1, setInputVal1] = useState(NaN);
-  const handleInputVal1 = e => setInputVal1(Number(e.target.value));
+  const [input_val_1, setInputVal1] = useState(0);
+  const [input_val_2, setInputVal2] = useState(0);
+  const handleInputVal1 = (e)         => { console.log('input_val_1: ', input_val_1); setInputVal1(e.target.value); }
+  const handleInputVal2 = (e, newVal) => { console.log('input_val_2: ', input_val_2); setInputVal2(newVal);         }
 
   // --------------------------------------------
 
@@ -92,7 +93,7 @@ const ClientHomePage = () => {
 
 
         <Button variant="outlined" color="secondary" onClick={() => {
-          // -Josh TODO (1/5): Get <id> from text field
+
           const id = input_val_1; // input field
 
           // -Orlando TODO (2/6): Drop API-call here
@@ -126,20 +127,32 @@ const ClientHomePage = () => {
 
         {/* - - - - - - - - - - - - - - - - - - */}
 
-        <Button variant="outlined" color="secondary" onClick={() => {
+        <div style={{border: 'solid black 1px'}}>
+          <Grid container spacing={2}>
+            <Grid item xs>
+              <Slider
+                color='secondary'
+                value={input_val_2}
+                onChange={handleInputVal2}
+              />
+            </Grid>
+            <Grid item>{input_val_2}</Grid>
+          </Grid>
 
-          // -Josh TODO (3/5): Get <intensity>
-          const intensity = 0; // slider
+          <Button variant="outlined" color="secondary" style={{width: '100%'}} onClick={() => {
 
-          // -Orlando TODO (4/6): Drop API-call here
-          // get classes by intensity GET     /api/auth/users/classes/intensity  intensity        N/A                Gets all the class in that intensity. "low", "medium", or "high"
-          const endpoint = `/api/auth/users/classes/${intensity}`;
-          axios.get(`https://anywhere-fitness-ptbw.herokuapp.com${endpoint}`)
-               .then(res => console.log('response: ', res))
-               .catch(err => console.log(err));
-        }}>
-          Get Classes by Intensity
-        </Button>
+            const intensity = input_val_2; // slider
+
+            // -Orlando TODO (4/6): Drop API-call here
+            // get classes by intensity GET     /api/auth/users/classes/intensity  intensity        N/A                Gets all the class in that intensity. "low", "medium", or "high"
+            const endpoint = `/api/auth/users/classes/${intensity}`;
+            axios.get(`https://anywhere-fitness-ptbw.herokuapp.com${endpoint}`)
+                .then(res => console.log('response: ', res))
+                .catch(err => console.log(err));
+          }}>
+            Get Classes by Intensity
+          </Button>
+        </div>
 
         {/* - - - - - - - - - - - - - - - - - - */}
 
