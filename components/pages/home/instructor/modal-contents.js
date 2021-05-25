@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import TextField from '@material-ui/core/TextField';
 
+import Typography from '@material-ui/core/Typography';
+
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
@@ -9,6 +11,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Slider from '@material-ui/core/Slider';
+
+// import MaterialUIPickers from './modal-calendar.js';
+import DateAndTimePickers from './modal-calendar.js';
+// import MaterialUIPickers from './modal-date.js'
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -29,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
 export default function ModalContents() {
   const classes = useStyles();
 
-  // (0) name,                SHOULD BE REMOVED
   // (1) instructor_name,     Text Input Field
   // (2) duration,            Slider
   // (3) type,                Dropdown
@@ -37,9 +42,8 @@ export default function ModalContents() {
   // (5) location,            Dropdown
   // (6) max_size,            Slider
   // (7) date,                Calendar              (Start Time)
-  // (8) signedUp             ??????
 
-  const [input_val_1, setInputVal1] = useState(0);  // [input-field: Integer]    Instructor Name
+  const [input_val_1, setInputVal1] = useState('');  // [input-field: Integer]    Instructor Name
   const [input_val_2, setInputVal2] = useState(0);  // [slider:      Integer]    Class Duration
   const [input_val_3, setInputVal3] = useState(''); // [dropdown:    String]     Class Type
   const [input_val_4, setInputVal4] = useState(''); // [dropdown:    String]     Class Intensity
@@ -58,7 +62,7 @@ export default function ModalContents() {
       <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', height: '80vh'}}>
 
         {/* (1):  instructor_name,     Text Input Field */}
-        <TextField required id="standard-required" label="Required" value={input_val_1} onChange={handleInputVal1}/>
+        <TextField id="standard-required" label="Instructor Name" value={input_val_1} onChange={handleInputVal1}/>
 
         {/* (2) type,                Dropdown */}
         <div>
@@ -115,6 +119,9 @@ export default function ModalContents() {
 
         {/* (2) duration            Slider */}
         <div>
+          <Typography gutterBottom>
+            Duration
+          </Typography>
           <Grid container spacing={2}>
             <Grid item xs>
               <Slider
@@ -129,6 +136,9 @@ export default function ModalContents() {
 
         {/* (6) max_size            Slider */}
         <div>
+          <Typography gutterBottom>
+            Class Size
+          </Typography>
           <Grid container spacing={2}>
             <Grid item xs>
               <Slider
@@ -139,6 +149,11 @@ export default function ModalContents() {
             </Grid>
             <Grid item>{input_val_6}</Grid>
           </Grid>
+        </div>
+          {/* <MaterialUIPickers /> */}
+          <DateAndTimePickers />
+        <div>
+
         </div>
 
       </div>

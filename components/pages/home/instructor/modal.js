@@ -88,7 +88,7 @@ const Modal_AddClasses = () => {
 
     <div>
       <button type="button" onClick={handleOpen}>
-        react-transition-group
+        Add Class
       </button>
       <Modal
         aria-labelledby="transition-modal-title"
@@ -104,8 +104,8 @@ const Modal_AddClasses = () => {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <h2 id="transition-modal-title">Transition modal</h2>
-            <p id="transition-modal-description">react-transition-group animates me.</p>
+            <h2 id="transition-modal-title">Add Class</h2>
+            <p id="transition-modal-description">For Instructor</p>
 
             <ModalContents />
           </div>
