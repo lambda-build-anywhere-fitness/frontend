@@ -7,14 +7,14 @@ import { Link } from 'react-router-dom';
 const PublicHomePage = () => {
 
   return (
-    <div style={{display: 'grid', placeItems: 'center', height: '100vh', width: '100vw', background: 'lightblue'}}>
+    <div style={{display: 'grid', placeItems: 'center', height: '50vh', width: '100vw', paddingTop: '10vh', background: 'white'}}>
       <h1>Public HomePage</h1>
 
       <div>
-        <Link to="/login">Log In</Link>
+        <Link to="/login" style={{color: 'black'}}>Log In</Link>
       </div>
       <div>
-        <Link to="/register">Register</Link>
+        <Link to="/register" style={{color: 'black'}}>Register</Link>
       </div>
     </div>
   ); // return

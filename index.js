@@ -37,23 +37,18 @@ const App = () => {
   // --------------------------------------------
 
   const [logged_in, setLoggedIn] = useState(true);
-  const [role, setRole] = useState('client');
+  const [role, setRole] = useState('instructor');
 
   // --------------------------------------------
 
   return (
     <Router>
-    
+
       <Route exact path="/">
-        <PublicHomePage />
-      </Route>
-
-      <Route path="/client-home">
-        {logged_in && role=='client' ? <ClientHomePage /> : <Redirect to="/login" />}
-      </Route>
-
-      <Route path="/instructor-home">
-        {logged_in && role=='instructor' ? <InstructorHomePage /> : <Redirect to="/login" />}
+        {logged_in && role=='client' ? <ClientHomePage /> : 
+          logged_in && role=='instructor' ? <InstructorHomePage /> : 
+            <PublicHomePage />
+        }
       </Route>
 
       <Route path="/register">
