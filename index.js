@@ -25,7 +25,7 @@ const theme = createMuiTheme({
 
 import PublicHomePage     from './components/pages/home/public.js';
 import ClientHomePage     from './components/pages/home/client.js';
-import InstructorHomePage from './components/pages/home/instructor.js';
+import InstructorHomePage from './components/pages/home/instructor/instructor.js';
 import RegisterPage       from './components/pages/register/register.js';
 import LoginPage          from './components/pages/login/login.js';
 
