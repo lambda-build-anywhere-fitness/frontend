@@ -39,19 +39,22 @@ export default function ModalContents() {
   // (7) date,                Calendar              (Start Time)
   // (8) signedUp             ??????
 
-  const [input_val_1, setInputVal1] = useState(0);  // [input-field: Integer]    Class ID
+  const [input_val_1, setInputVal1] = useState(0);  // [input-field: Integer]    Instructor Name
   const [input_val_2, setInputVal2] = useState(0);  // [slider:      Integer]    Class Duration
   const [input_val_3, setInputVal3] = useState(''); // [dropdown:    String]     Class Type
-  const [input_val_4, setInputVal4] = useState(''); // [dropdown:    String]     Class Location
-  const [input_val_5, setInputVal5] = useState(''); // [dropdown:    String]     Class Intensity
+  const [input_val_4, setInputVal4] = useState(''); // [dropdown:    String]     Class Intensity
+  const [input_val_5, setInputVal5] = useState(''); // [dropdown:    String]     Class Location
+  const [input_val_6, setInputVal6] = useState(0);  // [slider:      Integer]    Class Size
   const handleInputVal1 = (e)         => { console.log('input_val_1: ', input_val_1); setInputVal1(e.target.value); }
   const handleInputVal2 = (e, newVal) => { console.log('input_val_2: ', input_val_2); setInputVal2(newVal);         }
   const handleInputVal3 = (e)         => { console.log('input_val_3: ', input_val_3); setInputVal3(e.target.value); }
   const handleInputVal4 = (e)         => { console.log('input_val_4: ', input_val_4); setInputVal4(e.target.value); }
   const handleInputVal5 = (e)         => { console.log('input_val_5: ', input_val_5); setInputVal5(e.target.value); }
+  const handleInputVal6 = (e, newVal) => { console.log('input_val_6: ', input_val_6); setInputVal6(newVal);         }
 
   return (
     <form className={classes.root} noValidate autoComplete="off" >
+
       <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', height: '80vh'}}>
 
         {/* (1):  instructor_name,     Text Input Field */}
@@ -123,9 +126,23 @@ export default function ModalContents() {
             <Grid item>{input_val_2}</Grid>
           </Grid>
         </div>
+
+        {/* (6) max_size            Slider */}
+        <div>
+          <Grid container spacing={2}>
+            <Grid item xs>
+              <Slider
+                color='secondary'
+                value={input_val_6}
+                onChange={handleInputVal6}
+              />
+            </Grid>
+            <Grid item>{input_val_6}</Grid>
+          </Grid>
+        </div>
+
       </div>
-      <div></div>
-      <div></div>
+
     </form>
   );
 }
