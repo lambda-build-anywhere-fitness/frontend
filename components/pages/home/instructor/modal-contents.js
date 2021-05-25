@@ -6,6 +6,10 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
+import Grid from '@material-ui/core/Grid';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import Slider from '@material-ui/core/Slider';
+
 import { makeStyles } from '@material-ui/core/styles';
 
 // ==============================================
@@ -104,6 +108,20 @@ export default function ModalContents() {
               <MenuItem value={'kansas'}>Kansas</MenuItem>
             </Select>
           </FormControl>
+        </div>
+
+        {/* (2) duration            Slider */}
+        <div>
+          <Grid container spacing={2}>
+            <Grid item xs>
+              <Slider
+                color='secondary'
+                value={input_val_2}
+                onChange={handleInputVal2}
+              />
+            </Grid>
+            <Grid item>{input_val_2}</Grid>
+          </Grid>
         </div>
       </div>
       <div></div>
