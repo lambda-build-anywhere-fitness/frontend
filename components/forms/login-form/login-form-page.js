@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import { useHistory } from "react-router-dom";
 import styled from 'styled-components';
 
@@ -8,6 +8,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles } from '@material-ui/core/styles';
 
 import gsap from 'gsap';
+import axios from 'axios';
 
 // ==============================================
 // ==============================================
@@ -125,13 +126,43 @@ const LoginFormPg = ({setFormData}) => {
   // --------------------------------------------
   const init_form = { email: '', password: '' };
   const [form, setForm] = useState(init_form);
-
+  const [error,setError] = useState(init_form)
+  const [buttonOff, setButtonOff] = useState(true)
   // --------------------------------------------
+
+  const fomSchema = yup.object().shape({
+    email: yup.string()
+              .required('Email is required')
+              .email('Please enter valid email'),
+              password:yup.string()
+                          .required('Password Required')
+                          .min(8, 'Password must be 8 charaters or more ')                            
+                          .max(30, 'Password must less than 30 charaters ')
+                          .lowercase(1, 'Password must have one upper case letter')
+                          .uppercase(1, 'Password must have one lowercase letter')
+                  
+  })
+
+  const validChanger = (name, value) => {
+    yup.reach(form, name)
+       .validate(value)
+       .then(valid => {
+         setError({ 
+           ...error, [name]: ''
+         })
+        .catch(err => {
+        setError({...error, [name]: err.error})
+        })
+       })
+  }
+  
 
   const onChange = (event) => {
     console.log('onChange() -- form: ', form);
     const { name, value } = event.target;
     setForm( {...form, [name]: value} );
+    validateChange(name, value)
+    setForm(newUser)
   };
   
   // --------------------------------------------
@@ -140,6 +171,16 @@ const LoginFormPg = ({setFormData}) => {
   const onPost = (event) => {
     console.log('onPost() in registration-form component');
     event.preventDefault();
+    axios.post(`https://anywhere-fitness-ptbw.herokuapp.com/api/auth/login`,form)
+         .then(res => {
+           getUser(res.data)
+           localStorage.setItem('token', res.data.token)
+           history.push(`${match.url}/success`)
+         })
+          .catch(err => {
+            console.log(err)
+            history.push(`${match.url}/error`)
+          })
 
     const formData = {
       "email": `${form.email}`,
@@ -166,9 +207,16 @@ const LoginFormPg = ({setFormData}) => {
 
   };
 
+  useEffect(() => {
+    formSchema.isValid(formState).then(valid => {
+      setButtonOff(!valid)
+    })
+  },[form])
+
   // --------------------------------------------
 
   return (
+    
     <FormContainer>
       <Form onSubmit={onPost}>
         <FormRow>
@@ -216,6 +264,7 @@ const LoginFormPg = ({setFormData}) => {
         </FormRow>
       </Form>
     </FormContainer>
+    
   );
 }
 export default LoginFormPg;

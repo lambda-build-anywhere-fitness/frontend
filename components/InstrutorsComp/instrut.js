@@ -1,3 +1,4 @@
+import { duration } from '@material-ui/core'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
@@ -74,13 +75,46 @@ export const InstructorPage = () => {
             console.log(err)
         })
 
-const editChanagehandle = e => {
+const editChanageHandle = e => {
     e.persist()
     setEditActivity({
         ...editActivity, [e.target.name]: e.target.value
     })
 }
 
+const deleteActivity = (item) => {
+    axios.delete()
+         .then((res => 
+             console.log('DELETE REQUEST', res)
+         ))
+         .catch(err => {
+             console.log(err)
+         })
+}
+
+const editSubmitHandler = (e) => {
+    e.preventDefault()
+    axios.put(``, 
+               { name: editActivity.name,
+                type: editActivity.type,
+                time: editActivity.date,
+                duration: editActivity.duration,
+                intensity: editActivity.intensity,
+                location: editActivity.location,
+                numberOfRegisteredAttendee: editActivity.numberOfRegisteredAttendee,
+                maxClassSize: editActivity.maxClassSize})
+         .then(res => console.log('EDITPUT REQUEST', res))
+                setEditActivity(res)
+                history.push('/instrut')
+}   
+
+
+const addChangeHandler = (e) => {
+    e.persist()
+    setAddActivity({
+        ...addActivity, [e.tarrget.name]: e.target.value
+    })
+    console.log('addChangeHandler', addActivity)
 return(
     <div>
         <ActivityList
