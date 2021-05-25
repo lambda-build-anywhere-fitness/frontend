@@ -104,6 +104,7 @@ const ClientHomePage = () => {
             InputProps={{
               startAdornment: <InputAdornment position="start">ID#</InputAdornment>,
             }}
+            value={input_val_1}
             onChange={handleInputVal1}
           />
 
@@ -129,9 +130,9 @@ const ClientHomePage = () => {
         <div className="card">
 
           <FormControl className={classes.formControl}>
-            <InputLabel id="client-classType-dropdown">Location</InputLabel>
+            <InputLabel id="client-classLocation-dropdown">Location</InputLabel>
             <Select
-              labelId="client-classType-dropdown"
+              labelId="client-classLocation-dropdown"
               value={input_val_4}
               onChange={handleInputVal4}
             >

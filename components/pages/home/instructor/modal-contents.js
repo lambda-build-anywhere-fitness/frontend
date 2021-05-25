@@ -1,9 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import TextField from '@material-ui/core/TextField';
+
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+
 import { makeStyles } from '@material-ui/core/styles';
+
+// ==============================================
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    background: 'lightgray',
     '& .MuiTextField-root': {
       margin: theme.spacing(1),
       width: '25ch',
@@ -11,142 +20,94 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// ==============================================
+
 export default function ModalContents() {
   const classes = useStyles();
 
+  // (0) name,                SHOULD BE REMOVED
+  // (1) instructor_name,     Text Input Field
+  // (2) duration,            Slider
+  // (3) type,                Dropdown
+  // (4) intensity,           Dropdown
+  // (5) location,            Dropdown
+  // (6) max_size,            Slider
+  // (7) date,                Calendar              (Start Time)
+  // (8) signedUp             ??????
+
+  const [input_val_1, setInputVal1] = useState(0);  // [input-field: Integer]    Class ID
+  const [input_val_2, setInputVal2] = useState(0);  // [slider:      Integer]    Class Duration
+  const [input_val_3, setInputVal3] = useState(''); // [dropdown:    String]     Class Type
+  const [input_val_4, setInputVal4] = useState(''); // [dropdown:    String]     Class Location
+  const [input_val_5, setInputVal5] = useState(''); // [dropdown:    String]     Class Intensity
+  const handleInputVal1 = (e)         => { console.log('input_val_1: ', input_val_1); setInputVal1(e.target.value); }
+  const handleInputVal2 = (e, newVal) => { console.log('input_val_2: ', input_val_2); setInputVal2(newVal);         }
+  const handleInputVal3 = (e)         => { console.log('input_val_3: ', input_val_3); setInputVal3(e.target.value); }
+  const handleInputVal4 = (e)         => { console.log('input_val_4: ', input_val_4); setInputVal4(e.target.value); }
+  const handleInputVal5 = (e)         => { console.log('input_val_5: ', input_val_5); setInputVal5(e.target.value); }
+
   return (
-    <form className={classes.root} noValidate autoComplete="off">
-      <div>
-        <TextField required id="standard-required" label="Required" defaultValue="Hello World" />
-        <TextField disabled id="standard-disabled" label="Disabled" defaultValue="Hello World" />
-        <TextField
-          id="standard-password-input"
-          label="Password"
-          type="password"
-          autoComplete="current-password"
-        />
-        <TextField
-          id="standard-read-only-input"
-          label="Read Only"
-          defaultValue="Hello World"
-          InputProps={{
-            readOnly: true,
-          }}
-        />
-        <TextField
-          id="standard-number"
-          label="Number"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-        <TextField id="standard-search" label="Search field" type="search" />
-        <TextField
-          id="standard-helperText"
-          label="Helper text"
-          defaultValue="Default Value"
-          helperText="Some important text"
-        />
+    <form className={classes.root} noValidate autoComplete="off" >
+      <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', height: '80vh'}}>
+
+        {/* (1):  instructor_name,     Text Input Field */}
+        <TextField required id="standard-required" label="Required" value={input_val_1} onChange={handleInputVal1}/>
+
+        {/* (2) type,                Dropdown */}
+        <div>
+          <FormControl className={classes.formControl} style={{width: '100%'}}>
+            <InputLabel id="client-classType-dropdown">Exercise Type</InputLabel>
+            <Select
+              labelId="client-classType-dropdown"
+              value={input_val_3}
+              onChange={handleInputVal3}
+            >
+              <MenuItem value={'aerobic'}>Aerobic</MenuItem>
+              <MenuItem value={'weights'}>Weight Training</MenuItem>
+              <MenuItem value={'yoga'}>Yoga</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
+
+        {/* (3) intensity,           Dropdown              --- */}
+        <div>
+          <FormControl className={classes.formControl} style={{width: '100%'}}>
+            <InputLabel id="instructor-classIntensity-dropdown">Intensity</InputLabel>
+            <Select
+              labelId="instructor-classIntensity-dropdown"
+              value={input_val_4}
+              onChange={handleInputVal4}
+              style={{width: '100%'}}
+            >
+              <MenuItem value={'low'}>low</MenuItem>
+              <MenuItem value={'medium'}>medium</MenuItem>
+              <MenuItem value={'high'}>High</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
+
+        {/* (4) location,            Dropdown              --- */}
+        <div>
+          <FormControl className={classes.formControl} style={{width: '100%'}}>
+            <InputLabel id="instructor-classLocation-dropdown">Location</InputLabel>
+            <Select
+              labelId="instructor-classLocation-dropdown"
+              value={input_val_5}
+              onChange={handleInputVal5}
+              style={{width: '100%'}}
+            >
+              <MenuItem value={'nebraska'}>Nebraska</MenuItem>
+              <MenuItem value={'texas'}>Texas</MenuItem>
+              <MenuItem value={'oklahoma'}>Oklahoma</MenuItem>
+              <MenuItem value={'south-dakota'}>South Dakota</MenuItem>
+              <MenuItem value={'north-dakota'}>North Dakota</MenuItem>
+              <MenuItem value={'kansas'}>Kansas</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
       </div>
-      <div>
-        <TextField
-          required
-          id="filled-required"
-          label="Required"
-          defaultValue="Hello World"
-          variant="filled"
-        />
-        <TextField
-          disabled
-          id="filled-disabled"
-          label="Disabled"
-          defaultValue="Hello World"
-          variant="filled"
-        />
-        <TextField
-          id="filled-password-input"
-          label="Password"
-          type="password"
-          autoComplete="current-password"
-          variant="filled"
-        />
-        <TextField
-          id="filled-read-only-input"
-          label="Read Only"
-          defaultValue="Hello World"
-          InputProps={{
-            readOnly: true,
-          }}
-          variant="filled"
-        />
-        <TextField
-          id="filled-number"
-          label="Number"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          variant="filled"
-        />
-        <TextField id="filled-search" label="Search field" type="search" variant="filled" />
-        <TextField
-          id="filled-helperText"
-          label="Helper text"
-          defaultValue="Default Value"
-          helperText="Some important text"
-          variant="filled"
-        />
-      </div>
-      <div>
-        <TextField
-          required
-          id="outlined-required"
-          label="Required"
-          defaultValue="Hello World"
-          variant="outlined"
-        />
-        <TextField
-          disabled
-          id="outlined-disabled"
-          label="Disabled"
-          defaultValue="Hello World"
-          variant="outlined"
-        />
-        <TextField
-          id="outlined-password-input"
-          label="Password"
-          type="password"
-          autoComplete="current-password"
-          variant="outlined"
-        />
-        <TextField
-          id="outlined-read-only-input"
-          label="Read Only"
-          defaultValue="Hello World"
-          InputProps={{
-            readOnly: true,
-          }}
-          variant="outlined"
-        />
-        <TextField
-          id="outlined-number"
-          label="Number"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          variant="outlined"
-        />
-        <TextField id="outlined-search" label="Search field" type="search" variant="outlined" />
-        <TextField
-          id="outlined-helperText"
-          label="Helper text"
-          defaultValue="Default Value"
-          helperText="Some important text"
-          variant="outlined"
-        />
-      </div>
+      <div></div>
+      <div></div>
     </form>
   );
 }
