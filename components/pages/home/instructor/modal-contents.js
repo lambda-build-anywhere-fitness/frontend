@@ -16,7 +16,10 @@ import Slider from '@material-ui/core/Slider';
 import DateAndTimePickers from './modal-calendar.js';
 // import MaterialUIPickers from './modal-date.js'
 
+import Button from '@material-ui/core/Button';
+
 import { makeStyles } from '@material-ui/core/styles';
+import axios from 'axios';
 
 // ==============================================
 
@@ -35,8 +38,30 @@ const useStyles = makeStyles((theme) => ({
 export default function ModalContents() {
   const classes = useStyles();
 
-  const onPost = () => {
+  const onPost = (event) => {
+    event.preventDefault();
     console.log('posted');
+
+    // TODO: Get the real ID from the form:
+    const ID = 0;
+    const formData = {
+      name: 'test',
+      instructor_name: 'test',
+      type: 'test',
+      intensity: 'test',
+      location: 'test', 
+      date: 'test', 
+      max_size: 'test', 
+      duration: 'test', 
+      signedUp: 'test'
+    };
+
+    axios.post(`https://anywhere-fitness-ptbw.herokuapp.com/api/auth/instructor/classes${ID}`, formData)
+         .then(res => {
+           console.log('response: ', res);
+
+         })
+         .catch(err => console.log(err));
   };
 
 
@@ -159,6 +184,11 @@ export default function ModalContents() {
           <DateAndTimePickers />
 
 
+        <div>
+          <Button variant="contained" type="submit">
+            Submit
+          </Button>
+        </div>
       </div>
 
     </form>
