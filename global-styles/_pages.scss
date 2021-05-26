@@ -17,12 +17,19 @@
       flex-direction: column;
       justify-content: space-evenly;
 
+
+      button { 
+        background: linear-gradient(90deg, var(--gradient-orange-starting), var(--gradient-orange-ending))
+      }
+
       .card {
         border: dashed hotpink 4px;
         background: lightgray;
         border: solid gray 1px;
         border-radius: 5px;
         padding: 5%;
+
+ 
       }
     }
 

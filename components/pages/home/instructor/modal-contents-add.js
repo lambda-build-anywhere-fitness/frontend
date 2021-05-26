@@ -185,7 +185,7 @@ export default function ModalContents({endpoint}) {
 
 
         <div>
-          <Button variant="contained" type="submit">
+          <Button className="button-1" variant="contained" type="submit" >
             Submit
           </Button>
         </div>

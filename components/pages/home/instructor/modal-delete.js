@@ -21,6 +21,8 @@ import Fade from '@material-ui/core/Fade';
 
 import ModalContents from './modal-contents-delete.js';
 
+import {buttonStyles, inputStyles} from '../../../../global-styles/form-styles.js';
+
 // ==============================================
 // ==============================================
 
@@ -68,8 +70,10 @@ const Modal_DeleteClasses = () => {
   // --------------------------------------------
 
   const classes = useStyles();
+  const buttonClasses = buttonStyles();
+  // const inputClasses = inputStyles();
 
-  // --------------------------------------------
+  // --------------------------------------------  
 
   const [open, setOpen] = useState(false);
 
@@ -86,9 +90,10 @@ const Modal_DeleteClasses = () => {
   return (
 
     <div>
-      <button type="button" onClick={handleOpen}>
+      <Button variant='contained' onClick={handleOpen} className={buttonClasses.root}>
         Delete Class
-      </button>
+      </Button>
+
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"

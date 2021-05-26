@@ -19,6 +19,7 @@ import Modal_AddClasses from './modal-add.js';
 import Modal_UpdateClasses from './modal-update.js';
 import Modal_DeleteClasses from './modal-delete.js';
 
+
 // ==============================================
 // ==============================================
 
@@ -38,10 +39,12 @@ const InstructorHomePage = () => {
 
   return (
     <div className="homepage homepage-client">
-      <div className="container">
-        <h1>Instructor Home Page</h1>
+      <div className="container" style={{position: 'relative'}}>
+        <div style={{position: 'absolute', display: 'grid', placeItems: 'center', top: '0', width: '100%', height: '200px'}}>
+          <h3 >Instructor Home Page</h3>
+        </div>
 
-        <div className="card">
+        <div className="card" style={{display: 'flex', justifyContent: 'space-evenly'}}>
 
           {/* /api/auth/instructor/classes */}
           <Modal_AddClasses endpoint={'add'}/>

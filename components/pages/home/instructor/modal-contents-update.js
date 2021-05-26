@@ -86,6 +86,11 @@ export default function ModalContents({endpoint}) {
   const handleInputVal5 = (e)         => { console.log('input_val_5: ', input_val_5); setInputVal5(e.target.value); }
   const handleInputVal6 = (e, newVal) => { console.log('input_val_6: ', input_val_6); setInputVal6(newVal);         }
 
+
+  // TODO
+  // -Logic to enable button once one of the form input fields are non-empty
+  // -Additional logic to disable all other form input fields => we only want to update one field at a time
+
   return (
     <form className={classes.root} noValidate autoComplete="off" onSubmit={onPost}>
 
