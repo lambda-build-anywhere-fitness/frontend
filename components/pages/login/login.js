@@ -87,7 +87,7 @@ const LoginPage = ({setLoggedIn, setRole}) => {
           <TextField name="password" label="password" onChange={handleTextChange2} className={inputClasses.root}/>
         </FormControl>
 
-        <Button variant="contained" type="submit" onSubmit={onPost} className={buttonClasses.root}>
+        <Button variant="contained" type="submit" className={buttonClasses.root}>
           LOG IN
         </Button>
         

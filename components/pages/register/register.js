@@ -115,7 +115,7 @@ const RegisterPage = () => {
           </RadioGroup>
         </FormControl>
 
-        <Button variant="contained" type="submit" onSubmit={onPost} className={buttonClasses.root}>
+        <Button variant="contained" type="submit" className={buttonClasses.root}>
           REGISTER
         </Button>
 

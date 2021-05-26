@@ -15,7 +15,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 
-import Modal_AddClasses from './modal.js';
+import Modal_AddClasses from './modal-add.js';
+import Modal_UpdateClasses from './modal-update.js';
+import Modal_DeleteClasses from './modal-delete.js';
 
 // ==============================================
 // ==============================================
@@ -34,41 +36,6 @@ const InstructorHomePage = () => {
 
   // --------------------------------------------
 
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      display: 'flex',
-      flexWrap: 'wrap',
-    },
-    margin: {
-      margin: theme.spacing(1),
-    },
-    withoutLabel: {
-      marginTop: theme.spacing(3),
-    },
-    textField: {
-      width: '25ch',
-    },
-  
-    modal: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    paper: {
-      backgroundColor: theme.palette.background.paper,
-      border: '2px solid #000',
-      boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
-    },
-  }));
-
-  // --------------------------------------------
-
-  const classes = useStyles();
-
-
-  // --------------------------------------------
-
   return (
     <div className="homepage homepage-client">
       <div className="container">
@@ -76,7 +43,15 @@ const InstructorHomePage = () => {
 
         <div className="card">
 
+          {/* /api/auth/instructor/classes */}
           <Modal_AddClasses />
+
+          {/* /api/auth/instructor/classes/:id	 */}
+          <Modal_UpdateClasses />
+
+
+          {/* /api/auth/instructor/classes/:id */}
+          <Modal_DeleteClasses />
 
         </div>
       

@@ -35,6 +35,11 @@ const useStyles = makeStyles((theme) => ({
 export default function ModalContents() {
   const classes = useStyles();
 
+  const onPost = () => {
+    console.log('posted');
+  };
+
+
   // (1) instructor_name,     Text Input Field
   // (2) duration,            Slider
   // (3) type,                Dropdown
@@ -57,7 +62,7 @@ export default function ModalContents() {
   const handleInputVal6 = (e, newVal) => { console.log('input_val_6: ', input_val_6); setInputVal6(newVal);         }
 
   return (
-    <form className={classes.root} noValidate autoComplete="off" >
+    <form className={classes.root} noValidate autoComplete="off" onSubmit={onPost}>
 
       <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', height: '80vh'}}>
 
@@ -152,9 +157,7 @@ export default function ModalContents() {
         </div>
           {/* <MaterialUIPickers /> */}
           <DateAndTimePickers />
-        <div>
 
-        </div>
 
       </div>
 
