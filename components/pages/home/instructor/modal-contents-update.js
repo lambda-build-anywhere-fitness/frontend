@@ -92,7 +92,7 @@ export default function ModalContents({endpoint}) {
       <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', height: '80vh'}}>
 
         {/* (1):  instructor_name,     Text Input Field */}
-        <TextField id="standard-required" label="Instructor Name" value={input_val_1} onChange={handleInputVal1}/>
+        <TextField label="Instructor Name" value={input_val_1} onChange={handleInputVal1}/>
 
         {/* (2) type,                Dropdown */}
         <div>
