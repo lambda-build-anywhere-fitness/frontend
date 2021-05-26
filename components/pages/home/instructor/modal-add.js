@@ -19,7 +19,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 
-import ModalContents from './modal-contents.js';
+import ModalContents from './modal-contents-add.js';
 
 // ==============================================
 // ==============================================

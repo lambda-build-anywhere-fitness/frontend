@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 
 // ==============================================
 
-export default function ModalContents() {
+export default function ModalContents({endpoint}) {
   const classes = useStyles();
 
   const onPost = (event) => {

@@ -19,7 +19,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 
-import ModalContents from './modal-contents.js';
+import ModalContents from './modal-contents-update.js';
 
 // ==============================================
 // ==============================================
@@ -103,7 +103,7 @@ const Modal_UpdateClasses = () => {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <h2 id="transition-modal-title">Add Class</h2>
+            <h2 id="transition-modal-title">Update Class</h2>
             <p id="transition-modal-description">For Instructor</p>
 
             <ModalContents />

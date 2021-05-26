@@ -44,14 +44,14 @@ const InstructorHomePage = () => {
         <div className="card">
 
           {/* /api/auth/instructor/classes */}
-          <Modal_AddClasses />
+          <Modal_AddClasses endpoint={'add'}/>
 
           {/* /api/auth/instructor/classes/:id	 */}
-          <Modal_UpdateClasses />
+          <Modal_UpdateClasses endpoint={'update'} />
 
 
           {/* /api/auth/instructor/classes/:id */}
-          <Modal_DeleteClasses />
+          <Modal_DeleteClasses endpoint={'delete'}/>
 
         </div>
       
