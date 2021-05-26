@@ -23,8 +23,8 @@ const theme = createMuiTheme({
 // ==============================================
 // ==============================================
 
-import PublicHomePage     from './components/pages/home/public.js';
-import ClientHomePage     from './components/pages/home/client.js';
+import PublicHomePage     from './components/pages/home/public/public.js';
+import ClientHomePage     from './components/pages/home/client/client.js';
 import InstructorHomePage from './components/pages/home/instructor/instructor.js';
 import RegisterPage       from './components/pages/register/register.js';
 import LoginPage          from './components/pages/login/login.js';
@@ -36,7 +36,7 @@ const App = () => {
 
   // --------------------------------------------
 
-  const [logged_in, setLoggedIn] = useState(true);
+  const [logged_in, setLoggedIn] = useState(false);
   const [role, setRole] = useState('instructor');
 
   // --------------------------------------------
