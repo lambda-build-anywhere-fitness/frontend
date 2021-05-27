@@ -21,7 +21,7 @@ import Fade from '@material-ui/core/Fade';
 
 import ModalContents from './modal-contents-delete.js';
 
-import {buttonStyles, inputStyles} from '../../../../global-styles/form-styles.js';
+import {buttonStylesPurple} from '../../../../global-styles/form-styles.js';
 
 // ==============================================
 // ==============================================
@@ -70,8 +70,7 @@ const Modal_DeleteClasses = () => {
   // --------------------------------------------
 
   const classes = useStyles();
-  const buttonClasses = buttonStyles();
-  // const inputClasses = inputStyles();
+  const buttonClasses = buttonStylesPurple();
 
   // --------------------------------------------  
 
