@@ -21,7 +21,7 @@ import Fade from '@material-ui/core/Fade';
 
 import ModalContents from './modal-contents-add.js';
 
-import {buttonStyles, inputStyles} from '../../../../global-styles/form-styles.js';
+import {buttonStyles, buttonStylesGreen, inputStyles} from '../../../../global-styles/form-styles.js';
 
 // ==============================================
 // ==============================================
@@ -87,13 +87,14 @@ const Modal_AddClasses = () => {
 
   const buttonClasses = buttonStyles();
   // const inputClasses = inputStyles();
+  const buttonClassesGreen = buttonStylesGreen();
 
   // --------------------------------------------  
 
   return (
 
     <div>
-      <Button variant='contained' onClick={handleOpen} className={buttonClasses.root}>
+      <Button variant='contained' onClick={handleOpen} className={buttonClassesGreen.root}>
         Add Class
       </Button>
 

@@ -52,7 +52,6 @@ const InstructorHomePage = () => {
           {/* /api/auth/instructor/classes/:id	 */}
           <Modal_UpdateClasses endpoint={'update'} />
 
-
           {/* /api/auth/instructor/classes/:id */}
           <Modal_DeleteClasses endpoint={'delete'}/>
 
