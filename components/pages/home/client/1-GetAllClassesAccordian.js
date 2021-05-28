@@ -6,6 +6,8 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
+import NestedGrid from './grid.js';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -32,10 +34,9 @@ export default function Accordian_GetAllClasses() {
         </AccordionSummary>
         
         <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget.
-          </Typography>
+
+          <NestedGrid></NestedGrid>
+
         </AccordionDetails>
       
       </Accordion>
