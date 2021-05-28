@@ -15,6 +15,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 
+// import SimpleAccordion from './accordian.js';
+import Accordian_GetAllClasses from './1-GetAllClassesAccordian.js';
+
 // ==============================================
 // ==============================================
 
@@ -84,15 +87,18 @@ const ClientHomePage = () => {
         <div className="card">
           <Button variant="outlined" color="secondary" style={{width: '100%'}} onClick={() => {
 
-          // -Orlando TODO (1/6): Drop API-call here
-          // --get all classes          GET     /api/auth/users/classes            N/A              N/A                Fetches all the classes from the database
-          const endpoint = '/api/auth/users/classes';
-          axios.get(`https://anywhere-fitness-ptbw.herokuapp.com${endpoint}`)
-               .then(res => console.log('response: ', res))
-               .catch(err => console.log(err));
-        }}>
-          Get All Classes
-        </Button>
+            // -Orlando TODO (1/6): Drop API-call here
+            // --get all classes          GET     /api/auth/users/classes            N/A              N/A                Fetches all the classes from the database
+            const endpoint = '/api/auth/users/classes';
+            axios.get(`https://anywhere-fitness-ptbw.herokuapp.com${endpoint}`)
+                .then(res => console.log('response: ', res))
+                .catch(err => console.log(err));
+            }}
+          >
+            Get All Classes
+          </Button>
+
+          <Accordian_GetAllClasses />
         </div>
         {/* - - - - - - - - - - - - - - - - - - */}
 
@@ -265,6 +271,8 @@ const ClientHomePage = () => {
         </div>
         
         {/* - - - - - - - - - - - - - - - - - - */}
+
+        
       
       </div>
     </div>

@@ -37,7 +37,7 @@ const App = () => {
   // --------------------------------------------
 
   const [logged_in, setLoggedIn] = useState(true);
-  const [role, setRole] = useState('instructor');
+  const [role, setRole] = useState('client');
 
   // --------------------------------------------
 
@@ -71,6 +71,6 @@ const App = () => {
 render(
   <ThemeProvider theme={theme}>
     <App />
-  </ThemeProvider>,                 // arg-1: Invoked component
-  document.querySelector('#root')   // arg-2: DOM node we want to attach to
+  </ThemeProvider>,
+  document.querySelector('#root')
 );
